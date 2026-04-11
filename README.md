@@ -17,23 +17,29 @@ This project demonstrates professional React development practices and serves as
 ## 🛠️ Tech Stack
 
 ### Core Technologies
+
 - **React 19** - Latest React with concurrent features
 - **TypeScript 6.0** - Strict type safety and modern patterns
 - **Vite 8.0** - Fast build tool and development server
 
 ### UI & Styling
+
 - **Material UI (MUI) v6** - Component library with advanced theming
 - **Emotion** - CSS-in-JS styling (MUI dependency)
 
 ### Routing & Navigation
+
 - **React Router v6** - Declarative routing with TypeScript support
 
 ### Development Tools
+
 - **ESLint 9** - Code quality and React-specific rules
 - **Prettier** - Consistent code formatting
 - **Husky** - Git hooks for code quality
+- **Storybook** - Component development and interactive documentation
 
 ### Testing
+
 - **Vitest** - Fast unit testing framework
 - **React Testing Library** - Component testing utilities
 - **MSW** - API mocking for integration tests
@@ -51,8 +57,9 @@ src/
 │   └── user-management/     # User-related features
 ├── components/
 │   ├── ui/                 # Reusable UI components
-│   │   ├── Button/         # MUI extensions
-│   │   ├── TextField/      # Custom input components
+│   │   ├── Button/         # MUI extensions with stories
+│   │   ├── TextField/      # Custom input components with stories
+│   │   ├── Card/           # Card components with stories
 │   │   └── index.ts        # Barrel exports
 │   └── layout/            # Layout components
 ├── pages/                 # Route-level components
@@ -83,12 +90,17 @@ src/
 │   ├── light.ts           # Light theme
 │   ├── dark.ts            # Dark theme
 │   └── index.ts           # Theme provider setup
+├── .storybook/             # Storybook configuration
+│   ├── main.ts            # Storybook main configuration
+│   ├── preview.ts         # Storybook preview settings
+│   └── tsconfig.json      # Storybook TypeScript config
 └── App.tsx               # Root application component
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - **Node.js** 18.0.0 or higher
 - **pnpm** 8.0.0 or higher (recommended)
 
@@ -114,10 +126,12 @@ pnpm dev
 # Development
 pnpm dev              # Start development server with HMR
 pnpm preview          # Preview production build locally
+pnpm storybook         # Start Storybook for component development
 
 # Building
 pnpm build            # Build for production
 pnpm build:analyze    # Build with bundle analyzer
+pnpm build-storybook   # Build static Storybook for deployment
 
 # Code Quality
 pnpm lint             # Run ESLint
@@ -135,11 +149,13 @@ pnpm test:ui          # Run tests with Vitest UI
 ## 🧪 Testing Strategy
 
 ### Unit Testing
+
 - **Component Tests**: Individual component behavior
 - **Hook Tests**: Custom hook functionality
 - **Utility Tests**: Pure function validation
 
 ### Integration Testing
+
 - **User Workflows**: Complete user journey testing
 - **API Integration**: Mocked API responses
 - **Routing**: Navigation and route guards
@@ -162,24 +178,44 @@ pnpm test:ui
 
 ## 📚 Learning Resources
 
+### Storybook Interactive Learning
+
+- **[Component Development](http://localhost:6006)** - Interactive component development
+- **[React Patterns](http://localhost:6006/?path=/story/learning-react-patterns)** - Live pattern demonstrations
+- **[Visual Testing](http://localhost:6006)** - Component testing and documentation
+
 ### Advanced React Patterns
+
 - **[Compound Components](docs/patterns/compound-components.md)** - Building flexible component APIs
 - **[Custom Hooks](docs/patterns/custom-hooks.md)** - Reusable stateful logic
 - **[Render Props](docs/patterns/render-props.md)** - Component composition patterns
 
 ### Performance Optimization
+
 - **[Code Splitting](docs/performance/code-splitting.md)** - Lazy loading strategies
 - **[Memoization](docs/performance/memoization.md)** - React.memo and useMemo patterns
 - **[Bundle Optimization](docs/performance/bundle-optimization.md)** - Build analysis and optimization
 
 ### Material UI Mastery
+
 - **[Theming System](docs/mui/theming.md)** - Custom theme creation
 - **[Component Extension](docs/mui/component-extension.md)** - Customizing MUI components
 - **[Design Tokens](docs/mui/design-tokens.md)** - Consistent design system
 
 ## 🔧 Development Workflow
 
+### Component Development (Storybook-First)
+
+1. Create component: `src/components/ui/ComponentName/ComponentName.tsx`
+2. Create Storybook story: `src/components/ui/ComponentName/ComponentName.stories.tsx`
+3. Start Storybook: `pnpm storybook`
+4. Develop component with live preview and controls
+5. Add tests: `src/components/ui/ComponentName/ComponentName.test.tsx`
+6. Run tests: `pnpm test`
+7. Ensure linting and formatting: `pnpm lint && pnpm format`
+
 ### Feature Development
+
 1. Create feature branch: `git checkout -b feature/feature-name`
 2. Follow project structure for new features
 3. Write tests for new functionality
@@ -188,6 +224,7 @@ pnpm test:ui
 6. Submit pull request for review
 
 ### Code Quality Standards
+
 - **TypeScript**: Strict mode enabled, no `any` types
 - **ESLint**: All rules must pass
 - **Testing**: Minimum 80% code coverage
@@ -196,13 +233,16 @@ pnpm test:ui
 ## 🎨 Theming and Styling
 
 ### Theme Customization
+
 The application uses Material UI's theming system with support for:
+
 - **Light/Dark modes** with system preference detection
 - **Custom color palettes** for brand consistency
 - **Responsive typography** scaling
 - **Component-specific overrides** for custom styling
 
 ### Adding New Themes
+
 ```typescript
 // theme/custom.ts
 import { createTheme } from '@mui/material/styles';
@@ -220,12 +260,14 @@ export const customTheme = createTheme({
 ## 🚀 Performance Considerations
 
 ### Optimization Techniques Implemented
+
 - **Code Splitting**: Automatic route-based splitting
 - **Tree Shaking**: Unused code elimination
 - **Image Optimization**: Lazy loading and modern formats
 - **Bundle Analysis**: Regular bundle size monitoring
 
 ### Performance Monitoring
+
 ```bash
 # Analyze bundle size
 pnpm build:analyze
