@@ -29,21 +29,66 @@
 - [ ] 3.2 Configure Vitest with React Testing Library
 - [ ] 3.3 Add comprehensive npm scripts for testing, linting, and formatting
 
-## 4. Component Development
+## 4. Component Development (Clean Separation)
 
-- [ ] 4.1 Create Button component in `src/components/ui/Button/`
-- [ ] 4.2 Create Button story in `src/stories/Button.stories.tsx` (separate directory)
-- [ ] 4.3 Create TextField component in `src/components/ui/TextField/`
-- [ ] 4.4 Create TextField story in `src/stories/TextField.stories.tsx`
-- [ ] 4.5 Create Card component in `src/components/ui/Card/`
-- [ ] 4.6 Create Card story in `src/stories/Card.stories.tsx`
-- [ ] 4.7 Create interactive learning patterns in `src/stories/Learning.stories.tsx`
-- [ ] 4.8 Create component documentation through Storybook auto-docs
-- [ ] 4.9 Implement visual testing workflow with Storybook controls
-- [ ] 4.10 Add accessibility testing in Storybook stories
-- [ ] 4.11 Create MUI theme provider wrapper for Storybook
-- [ ] 4.12 Configure MUI components with custom theme in Storybook
-- [ ] 4.13 Create MUI component variants and styling examples
+### Pure UI Components (Unit Tests Only)
+
+- [ ] 4.1 Create Button component in `src/components/ui/Button/` (no Storybook dependencies)
+- [ ] 4.2 Create Button unit test in `src/components/ui/Button/Button.test.tsx` (rendering, props, events, a11y)
+- [ ] 4.3 Create TextField component in `src/components/ui/TextField/` (no Storybook dependencies)
+- [ ] 4.4 Create TextField unit test in `src/components/ui/TextField/TextField.test.tsx`
+- [ ] 4.5 Create Card component in `src/components/ui/Card/` (no Storybook dependencies)
+- [ ] 4.6 Create Card unit test in `src/components/ui/Card/Card.test.tsx`
+- [ ] 4.7 Create component library barrel export in `src/components/ui/index.ts`
+
+### Storybook Documentation (Improved Organization)
+
+- [ ] 4.8 Create UI stories directory structure in `src/stories/UI/`
+- [ ] 4.9 Create main showcase as top-level entry point in `src/stories/UI/Showcase.stories.tsx`
+- [ ] 4.10 Create learning patterns overview in `src/stories/UI/Learning.stories.tsx`
+- [ ] 4.11 Create Input Components category structure
+- [ ] 4.12 Create Button stories: Playground, Variants, Accessibility in `src/stories/UI/InputComponents/`
+- [ ] 4.13 Create TextField stories: Playground, Variants, Accessibility in `src/stories/UI/InputComponents/`
+- [ ] 4.14 Create Display Components category structure
+- [ ] 4.15 Create Card stories: Playground, Variants, Accessibility in `src/stories/UI/DisplayComponents/`
+- [ ] 4.16 Create component documentation through Storybook auto-docs
+- [ ] 4.17 Implement visual testing workflow with Storybook controls
+- [ ] 4.18 Add accessibility testing in Storybook stories
+
+### Testing Strategy (Unit Tests Only)
+
+- [ ] 4.19 Define unit testing scope and boundaries for component library
+- [ ] 4.20 Create unit test templates for components (rendering, props, events, a11y)
+- [ ] 4.21 Configure Vitest with React Testing Library for unit testing
+- [ ] 4.22 Setup test coverage reporting and minimum coverage thresholds
+- [ ] 4.23 Document what to test vs what to skip (no integration tests)
+- [ ] 4.24 Create testing utilities and helpers for component tests
+
+### Import Standardization
+
+- [ ] 4.25 Create comprehensive component library barrel exports in `src/components/ui/index.ts`
+- [ ] 4.26 Add TypeScript type exports alongside component exports
+- [ ] 4.27 Create grouped exports by category (InputComponents, DisplayComponents)
+- [ ] 4.28 Configure TypeScript path mapping for cleaner imports (`@ui/*` aliases)
+- [ ] 4.29 Setup ESLint import rules for consistency and validation
+- [ ] 4.30 Document import patterns and best practices
+
+### Theme Strategy (Shared Configuration)
+
+- [ ] 4.31 Create shared theme directory structure in `src/theme/`
+- [ ] 4.32 Create light theme configuration in `src/theme/light.ts`
+- [ ] 4.33 Create dark theme configuration in `src/theme/dark.ts`
+- [ ] 4.34 Create theme provider wrapper in `src/theme/index.ts`
+- [ ] 4.35 Configure Storybook to use shared theme provider
+- [ ] 4.36 Add theme switching controls in Storybook
+- [ ] 4.37 Ensure theme consistency between Storybook and production
+
+### Interactive Features
+
+- [ ] 4.38 Create MUI component variants and styling examples
+- [ ] 4.39 Create component roadmap in `src/stories/UI/Roadmap.stories.tsx`
+- [ ] 4.40 Implement interactive component builder in showcase
+- [ ] 4.41 Add code generation features for component combinations
 
 ## 5. Initial Implementation
 

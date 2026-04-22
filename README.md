@@ -48,53 +48,42 @@ This project demonstrates professional React development practices and serves as
 
 ```
 src/
-├── features/                 # Feature-based modules
-│   ├── task-management/      # Task CRUD functionality
-│   │   ├── components/       # Feature-specific components
-│   │   ├── hooks/           # Feature-specific hooks
-│   │   ├── types/           # Feature-specific types
-│   │   └── index.ts         # Public API exports
-│   └── user-management/     # User-related features
-├── components/
-│   ├── ui/                 # Reusable UI components
-│   │   ├── Button/         # MUI extensions with stories
-│   │   ├── TextField/      # Custom input components with stories
-│   │   ├── Card/           # Card components with stories
-│   │   └── index.ts        # Barrel exports
-│   └── layout/            # Layout components
-├── pages/                 # Route-level components
-│   ├── Dashboard/          # Main dashboard page
-│   ├── Tasks/             # Task management pages
-│   └── Profile/           # User profile pages
-├── services/              # API and data layer
-│   ├── api/               # API client configuration
-│   ├── hooks/             # Data fetching hooks
-│   └── types/             # API type definitions
-├── hooks/                 # Global custom hooks
-│   ├── useLocalStorage.ts  # Local storage utilities
-│   ├── useDebounce.ts     # Performance utilities
-│   └── index.ts           # Hook exports
-├── utils/                 # Pure utility functions
-│   ├── date.ts            # Date formatting utilities
-│   ├── validation.ts      # Form validation helpers
-│   └── constants.ts       # Application constants
-├── types/                 # Global TypeScript types
-│   ├── api.ts             # API response types
-│   ├── common.ts          # Shared utility types
-│   └── index.ts           # Type exports
-├── assets/                # Static assets
-│   ├── images/            # Image files
-│   ├── icons/             # SVG icons
-│   └── styles/            # Global styles
-├── theme/                 # MUI theme configuration
-│   ├── light.ts           # Light theme
-│   ├── dark.ts            # Dark theme
-│   └── index.ts           # Theme provider setup
-├── .storybook/             # Storybook configuration
-│   ├── main.ts            # Storybook main configuration
-│   ├── preview.ts         # Storybook preview settings
-│   └── tsconfig.json      # Storybook TypeScript config
-└── App.tsx               # Root application component
+components/ui/           # Pure component library
+  Button/              # Button component (no Storybook deps)
+    Button.tsx         # Component implementation
+    Button.test.tsx    # Component tests
+    index.ts           # Component export
+  TextField/           # TextField component
+    TextField.tsx      # Component implementation
+    TextField.test.tsx # Component tests
+    index.ts           # Component export
+  Card/                # Card component
+    Card.tsx           # Component implementation
+    Card.test.tsx      # Component tests
+    index.ts           # Component export
+  index.ts             # Library barrel export
+stories/UI/              # Storybook documentation only
+  Showcase.stories.tsx  # Main showcase (top-level entry point)
+  Learning.stories.tsx  # Learning patterns overview
+  Roadmap.stories.tsx   # Future components roadmap
+  InputComponents/      # Input category stories
+    Button.stories.tsx  # Button Playground, Variants, Accessibility
+    TextField.stories.tsx
+  DisplayComponents/    # Display category stories
+    Card.stories.tsx   # Card Playground, Variants, Accessibility
+src/theme/              # Shared theme configuration
+  light.ts             # Light theme configuration
+  dark.ts              # Dark theme configuration
+  index.ts             # Theme exports and provider
+assets/                 # Static assets
+hooks/                  # Global custom hooks
+types/                  # Global TypeScript types
+utils/                  # Pure utility functions
+services/               # API and data layer
+.storybook/             # Storybook configuration
+  main.ts              # Storybook main configuration
+  preview.ts           # Storybook preview settings
+App.tsx                # Root application component
 ```
 
 ## 🚀 Getting Started
@@ -140,25 +129,53 @@ pnpm format           # Format code with Prettier
 pnpm type-check       # Run TypeScript type checking
 
 # Testing
-pnpm test             # Run tests in watch mode
-pnpm test:run         # Run tests once
-pnpm test:coverage    # Run tests with coverage report
-pnpm test:ui          # Run tests with Vitest UI
+pnpm test             # Run unit tests
 ```
 
-## 🧪 Testing Strategy
+## 🧪 Testing Strategy (Unit Tests Only)
 
-### Unit Testing
+### Component Library Testing
 
-- **Component Tests**: Individual component behavior
-- **Hook Tests**: Custom hook functionality
-- **Utility Tests**: Pure function validation
+The UI component library uses **unit tests only** to maintain clean boundaries and reusability:
 
-### Integration Testing
+```typescript
+// What we test in the library
+describe('Button Component', () => {
+  it('renders with correct label', () => {
+    /* ... */
+  });
+  it('handles click events', () => {
+    /* ... */
+  });
+  it('shows loading state', () => {
+    /* ... */
+  });
+  it('has correct ARIA attributes', () => {
+    /* ... */
+  });
+});
 
-- **User Workflows**: Complete user journey testing
-- **API Integration**: Mocked API responses
-- **Routing**: Navigation and route guards
+// What we DON'T test in the library (application responsibility)
+describe('Button in Form', () => {
+  it('submits form when clicked', () => {
+    /* Skip - belongs in application */
+  });
+});
+```
+
+#### Testing Scope
+
+**Unit Tests (Component Library):**
+• Component rendering and props
+• Event handling and state
+• Accessibility attributes
+• Edge cases and error states
+
+**Integration Tests (Applications):**
+• Component composition
+• User workflows
+• Form submissions
+• Navigation flows
 
 ### Running Tests
 
@@ -180,9 +197,31 @@ pnpm test:ui
 
 ### Storybook Interactive Learning
 
-- **[Component Development](http://localhost:6006)** - Interactive component development
-- **[React Patterns](http://localhost:6006/?path=/story/learning-react-patterns)** - Live pattern demonstrations
+- **[Component Showcase](http://localhost:6006)** - Main component overview and playground
+- **[Learning Patterns](http://localhost:6006)** - Interactive React pattern demonstrations
+- **[Component Categories](http://localhost:6006)** - Organized by Input, Display, Layout components
 - **[Visual Testing](http://localhost:6006)** - Component testing and documentation
+
+### Storybook Organization
+
+```
+UI Components/
+  Showcase                    # Top-level entry point
+  Learning Patterns
+
+  Input Components
+    Button Playground
+    Button Variants
+    Button Accessibility
+    TextField Playground
+    TextField Variants
+    TextField Accessibility
+
+  Display Components
+    Card Playground
+    Card Variants
+    Card Accessibility
+```
 
 ### Advanced React Patterns
 
@@ -204,15 +243,43 @@ pnpm test:ui
 
 ## 🔧 Development Workflow
 
-### Component Development (Storybook-First)
+### Component Development (Clean Separation)
 
-1. Create component: `src/components/ui/ComponentName/ComponentName.tsx`
-2. Create Storybook story: `src/components/ui/ComponentName/ComponentName.stories.tsx`
-3. Start Storybook: `pnpm storybook`
-4. Develop component with live preview and controls
-5. Add tests: `src/components/ui/ComponentName/ComponentName.test.tsx`
+1. Create pure component: `src/components/ui/ComponentName/ComponentName.tsx` (no Storybook deps)
+2. Create component test: `src/components/ui/ComponentName/ComponentName.test.tsx`
+3. Create Storybook story: `src/stories/UI/Components/ComponentName.stories.tsx` (imports from library)
+4. Start Storybook: `pnpm storybook`
+5. Develop component with live preview and controls
 6. Run tests: `pnpm test`
 7. Ensure linting and formatting: `pnpm lint && pnpm format`
+8. Update library exports: `src/components/ui/index.ts`
+
+### Import Patterns (Standardized)
+
+#### Component Library Imports
+
+```typescript
+// Multiple components - use barrel import
+import { Button, TextField, Card } from '../components/ui';
+
+// Single component - use individual import (better tree-shaking)
+import { Button } from '../components/ui/Button';
+
+// Grouped imports for categories
+import { InputComponents, DisplayComponents } from '../components/ui';
+
+// TypeScript types
+import type { ButtonProps, TextFieldProps } from '../components/ui';
+```
+
+#### Path Aliases (Configured)
+
+```typescript
+// Using path aliases for cleaner imports
+import { Button } from '@ui/Button';
+import { Button, TextField } from '@ui';
+import type { ButtonProps } from '@ui';
+```
 
 ### Feature Development
 
@@ -232,14 +299,34 @@ pnpm test:ui
 
 ## 🎨 Theming and Styling
 
+### Shared Theme Strategy
+
+The project uses a **shared theme configuration** that ensures consistency between Storybook and production:
+
+```typescript
+// Both Storybook and production use the same theme
+import { ThemeProviderWrapper } from './src/theme';
+
+<ThemeProviderWrapper theme="light">
+  {/* Components */}
+</ThemeProviderWrapper>
+```
+
+### Theme Structure
+
+- **src/theme/light.ts** - Light theme configuration
+- **src/theme/dark.ts** - Dark theme configuration
+- **src/theme/index.ts** - Theme provider wrapper and exports
+
 ### Theme Customization
 
 The application uses Material UI's theming system with support for:
 
-- **Light/Dark modes** with system preference detection
-- **Custom color palettes** for brand consistency
+- **Light/Dark modes** with consistent configuration across Storybook and production
+- **Shared color palettes** for brand consistency
 - **Responsive typography** scaling
 - **Component-specific overrides** for custom styling
+- **Theme switching** controls in Storybook for testing
 
 ### Adding New Themes
 
