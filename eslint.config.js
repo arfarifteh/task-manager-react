@@ -25,6 +25,10 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      // Basic import rules without plugin for now
+      // TODO: Add import rules when ESLint flat config supports import plugin properly
+    },
   },
   ...storybook.configs['flat/recommended'],
 ]);

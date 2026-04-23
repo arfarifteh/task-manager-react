@@ -47,6 +47,13 @@ The current task manager application has a basic Vite + React 19 + TypeScript se
 - Rationale: Better deployment flexibility and environment management
 - Alternative considered: Single configuration file - rejected for inflexibility
 
+**React Router Evolution Strategy**
+
+- Implement React Router pattern with co-located routes as foundation
+- Rationale: Industry standard, scalable, ready for data loading evolution
+- Alternative considered: Basic router with pages - rejected for scalability
+- Evolution path: Lazy loading (current) + Data loading (future) + Full features (advanced)
+
 **State Management Strategy**
 
 - Start with React Context + useReducer for simple state management
@@ -320,11 +327,303 @@ describe('Button Component', () => {
 ```json
 // package.json scripts
 {
+  "dev": "vite",
+  "build": "tsc -b && vite build",
+  "preview": "vite preview",
+  "lint": "eslint .",
+  "lint:fix": "eslint . --fix",
+  "format": "prettier --write .",
+  "format:check": "prettier --check .",
+  "type-check": "tsc --noEmit",
   "test": "vitest",
   "test:ui": "vitest --ui",
   "test:coverage": "vitest --coverage",
-  "test:watch": "vitest --watch"
+  "test:watch": "vitest --watch",
+  "storybook": "storybook dev -p 6006",
+  "build-storybook": "storybook build",
+  "prepare": "husky install"
 }
+```
+
+#### Pre-commit Hooks Configuration
+
+```json
+// package.json (husky + lint-staged)
+{
+  "lint-staged": {
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md}": ["prettier --write"]
+  }
+}
+```
+
+### React Router Implementation (React Router Pattern)
+
+#### Route Structure (Co-located)
+
+```typescript
+// src/routes/root.tsx
+import { Outlet } from 'react-router-dom';
+import { ThemeProviderWrapper } from '../theme';
+
+export default function Root() {
+  return (
+    <ThemeProviderWrapper theme="light">
+      <AppLayout />
+      <Outlet />
+    </ThemeProviderWrapper>
+  );
+}
+
+function AppLayout() {
+  return (
+    <nav>
+      <Link to="/">Home</Link>
+      <Link to="/tasks">Tasks</Link>
+      <Link to="/components">Components</Link>
+    </nav>
+  );
+}
+
+// src/routes/index.tsx
+export default function HomePage() {
+  return <h1>Welcome to Task Manager</h1>;
+}
+
+// src/routes/tasks.tsx
+import { Link } from 'react-router-dom';
+
+export async function loader({ request }) {
+  const response = await fetch('/api/tasks');
+  return { tasks: await response.json() };
+}
+
+export default function TasksPage() {
+  const { tasks } = useLoaderData();
+  return (
+    <div>
+      <h1>Tasks</h1>
+      {tasks.map(task => (
+        <Link key={task.id} to={`/tasks/${task.id}`}>
+          {task.title}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+// src/routes/components.tsx
+export default function ComponentLibraryPage() {
+  return <h1>Component Library</h1>;
+}
+```
+
+#### Router Configuration
+
+```typescript
+// src/router/index.tsx
+import { lazy } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    Component: lazy(() => import('../routes/root')),
+    children: [
+      {
+        index: true,
+        Component: lazy(() => import('../routes/index')),
+        // Future: loader for dashboard stats
+        // loader: async () => {
+        //   const [tasks, user] = await Promise.all([
+        //     fetch('/api/tasks/summary'),
+        //     fetch('/api/user/profile')
+        //   ]);
+        //   return { tasks: await tasks.json(), user: await user.json() };
+        // }
+      },
+      {
+        path: 'tasks',
+        Component: lazy(() => import('../routes/tasks')),
+        // Future: loader for tasks list
+        // loader: async ({ request }) => {
+        //   const url = new URL(request.url);
+        //   const status = url.searchParams.get('status') || 'all';
+        //   const response = await fetch(`/api/tasks?status=${status}`);
+        //   return response.json();
+        // }
+      },
+      {
+        path: 'tasks/:taskId',
+        Component: lazy(() => import('../routes/tasks.$taskId')),
+        // Future: loader for individual task
+        // loader: async ({ params }) => {
+        //   const response = await fetch(`/api/tasks/${params.taskId}`);
+        //   if (!response.ok) throw new Response("Task not found", { status: 404 });
+        //   return { task: await response.json() };
+        // },
+        // Future: action for form submissions
+        // action: async ({ request, params }) => {
+        //   const formData = await request.formData();
+        //   await fetch(`/api/tasks/${params.taskId}`, {
+        //     method: 'PUT',
+        //     body: formData,
+        //   });
+        //   return redirect(`/tasks/${params.taskId}`);
+        // }
+      },
+      {
+        path: 'components',
+        Component: lazy(() => import('../routes/components')),
+        // Static page - no data loading needed
+      },
+    ],
+  },
+]);
+
+export const router = router;
+```
+
+#### Enhanced Route Components with ComponentProps
+
+```typescript
+// src/routes/tasks.tsx - Enhanced with data loading
+import type { Route } from "react-router";
+
+export default function TasksPage({ loaderData }: Route.ComponentProps) {
+  const { tasks } = loaderData;  // Automatically provided by router
+
+  return (
+    <div>
+      <h1>Tasks</h1>
+      {tasks.map(task => (
+        <Link key={task.id} to={`/tasks/${task.id}`}>
+          {task.title}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const response = await fetch('/api/tasks');
+  if (!response.ok) {
+    throw new Response("Failed to load tasks", { status: 500 });
+  }
+  return response.json();
+}
+
+// src/routes/tasks.$taskId.tsx - Individual task with params
+export default function TaskDetailPage({
+  loaderData,
+  params
+}: Route.ComponentProps) {
+  const { task } = loaderData;  // From loader function
+  const { taskId } = params;     // From URL /tasks/123
+
+  return (
+    <div>
+      <h1>{task.title}</h1>
+      <p>Status: {task.status}</p>
+      <Form method="put">
+        <input name="title" defaultValue={task.title} />
+        <button type="submit">Update</button>
+      </Form>
+    </div>
+  );
+}
+```
+
+#### ComponentProps Benefits
+
+| Prop         | Source            | Use Case                    |
+| ------------ | ----------------- | --------------------------- |
+| `loaderData` | `loader` function | Pre-fetched data on render  |
+| `actionData` | `action` function | Form submission results     |
+| `params`     | URL parameters    | Route params like `:taskId` |
+| `matches`    | Route hierarchy   | Current route context       |
+
+#### Evolution Path
+
+**Phase 1: Current (Basic)**
+
+```typescript
+// Lazy loading only
+Component: lazy(() => import('../routes/tasks'));
+```
+
+**Phase 2: Data Loading**
+
+```typescript
+// Lazy + loader
+{
+  path: 'tasks',
+  Component: lazy(() => import('../routes/tasks')),
+  loader: async () => ({ tasks: await fetch('/api/tasks') })
+}
+```
+
+**Phase 3: Full Features**
+
+```typescript
+// Lazy + loader + action + error handling
+{
+  path: 'tasks/:taskId',
+  Component: lazy(() => import('../routes/tasks.$taskId')),
+  loader: async ({ params }) => ({ task: await fetch(`/api/tasks/${params.taskId}`) }),
+  action: async ({ request, params }) => { /* handle form */ },
+  errorElement: <TaskErrorBoundary />
+}
+```
+
+#### Navigation Components
+
+```typescript
+// src/components/ui/Navigation.tsx
+import { Link, useLocation } from 'react-router-dom';
+import { Button } from './Button';
+
+export const Navigation = () => {
+  const location = useLocation();
+
+  return (
+    <nav>
+      <Link to="/">
+        <Button variant={location.pathname === '/' ? 'primary' : 'secondary'}>
+          Home
+        </Button>
+      </Link>
+      <Link to="/tasks">
+        <Button variant={location.pathname === '/tasks' ? 'primary' : 'secondary'}>
+          Tasks
+        </Button>
+      </Link>
+      <Link to="/components">
+        <Button variant={location.pathname === '/components' ? 'primary' : 'secondary'}>
+          Components
+        </Button>
+      </Link>
+    </nav>
+  );
+};
+```
+
+#### Route Organization Pattern
+
+```typescript
+// src/pages/HomePage.tsx
+import { Button, Card } from '../components/ui';
+
+export const HomePage = () => (
+  <div>
+    <h1>Welcome to Task Manager</h1>
+    <Card>
+      <h2>UI Component Library</h2>
+      <p>Explore our reusable components</p>
+      <Button variant="primary">View Components</Button>
+    </Card>
+  </div>
+);
 ```
 
 ### Theme Strategy (Shared Configuration)

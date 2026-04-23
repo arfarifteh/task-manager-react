@@ -25,9 +25,54 @@
 
 ## 3. Development Environment Setup
 
-- [ ] 3.1 Install and configure React Router with TypeScript support
-- [ ] 3.2 Configure Vitest with React Testing Library
-- [ ] 3.3 Add comprehensive npm scripts for testing, linting, and formatting
+- [x] 3.1 Install and configure React Router with TypeScript support
+- [x] 3.2 Configure Vitest with React Testing Library
+- [x] 3.3 Add comprehensive npm scripts for testing, linting, and formatting
+- [x] 3.4 Configure TypeScript path mapping for clean imports (@ui/\* aliases)
+- [x] 3.5 Setup ESLint import rules for consistency and validation
+- [x] 3.6 Configure pre-commit hooks with husky and lint-staged
+- [x] 3.7 Refactor to React Router pattern (co-located routes)
+  - [x] 3.7.1 Create `src/routes/` directory structure
+  - [x] 3.7.2 Create `src/routes/root.tsx` with layout and ThemeProvider
+  - [x] 3.7.3 Create `src/routes/index.tsx` (home page)
+  - [x] 3.7.4 Create `src/routes/tasks.tsx` (tasks page)
+  - [x] 3.7.5 Create `src/routes/components.tsx` (component library page)
+  - [x] 3.7.6 Update router configuration to use co-located components
+  - [x] 3.7.7 Remove old `src/pages/` directory
+  - [x] 3.7.8 Update imports and ensure proper navigation
+
+## 3.8 Immediate Router Enhancements (Production Readiness)
+
+- [x] 3.8.1 Add error boundaries for robust error handling
+  - [x] 3.8.1.1 Create generic ErrorBoundary component
+  - [x] 3.8.1.2 Create route-specific error boundaries
+  - [x] 3.8.1.3 Add errorElement to router configuration
+  - [x] 3.8.1.4 Test error scenarios and fallback UI
+- [x] 3.8.2 Enhance navigation with active states and UX improvements
+  - [x] 3.8.2.1 Add active link styling based on current route
+  - [x] 3.8.2.2 Add loading indicators for route transitions
+  - [x] 3.8.2.3 Improve navigation accessibility (ARIA labels)
+  - [x] 3.8.2.4 Replace inline styles with theme-based styling
+- [x] 3.8.3 Add loading states for lazy-loaded components
+  - [x] 3.8.3.1 Create Suspense wrapper with loading fallback
+  - [x] 3.8.3.2 Add skeleton loading components
+  - [x] 3.8.3.3 Implement route transition loading states
+
+## 3.9 Future Router Enhancements (Data Loading & ComponentProps)
+
+- [ ] 3.9.1 Add data loading to routes with loader functions
+  - [ ] 3.9.1.1 Add loader to tasks route for API integration
+  - [ ] 3.9.1.2 Add loader to individual task route (tasks.$taskId)
+  - [ ] 3.9.1.3 Update route components to use Route.ComponentProps
+  - [ ] 3.9.1.4 Add error boundaries for failed data loading
+- [ ] 3.9.2 Add form handling with action functions
+  - [ ] 3.9.2.1 Add action for task creation/update
+  - [ ] 3.9.2.2 Add action for task deletion
+  - [ ] 3.9.2.3 Update components to use React Router Form
+- [ ] 3.9.3 Add route parameters and dynamic routing
+  - [ ] 3.9.3.1 Create tasks.$taskId route for individual tasks
+  - [ ] 3.9.3.2 Add TypeScript types for route parameters
+  - [ ] 3.9.3.3 Update navigation to use dynamic links
 
 ## 4. Component Development (Clean Separation)
 

@@ -63,22 +63,63 @@ The system SHALL provide Material UI integration with proper theming and compone
 
 ### Requirement: React Router setup
 
-The system SHALL provide React Router configuration with proper TypeScript support and route organization.
+The system SHALL provide React Router configuration using the React Router pattern with co-located route components and proper TypeScript support.
 
 #### Scenario: Setting up routing
 
 - **WHEN** developer configures React Router
-- **THEN** it SHALL be set up with proper route definitions and TypeScript types
+- **THEN** it SHALL be set up using co-located route components in `src/routes/` directory
+- **AND** SHALL follow React Router best practices with proper TypeScript types
 
-#### Scenario: Adding new routes
+#### Scenario: Route co-location
 
-- **WHEN** developer creates a new page
-- **THEN** they SHALL add routes using the established routing pattern
+- **WHEN** developer creates a new route
+- **THEN** route component SHALL be co-located in `src/routes/[route].tsx` file
+- **AND** route configuration SHALL reference the co-located component
+- **AND** route-specific logic (loaders, actions) SHALL be in the same file
 
-#### Scenario: Navigation components
+#### Scenario: Layout and nesting
 
-- **WHEN** application needs navigation
-- **THEN** React Router's navigation components SHALL be properly integrated
+- **WHEN** application needs shared layout
+- **THEN** root route SHALL provide layout with ThemeProvider
+- **AND** nested routes SHALL render through `<Outlet />` component
+- **AND** navigation SHALL use React Router's `<Link />` components
+
+#### Scenario: Data loading (future)
+
+- **WHEN** route requires data fetching
+- **THEN** loader functions SHALL be co-located with route components
+- **AND** data SHALL be accessed via `Route.ComponentProps` interface
+- **AND** components SHALL receive `loaderData` prop automatically
+- **AND** error boundaries SHALL be provided for failed data loading
+
+#### Scenario: ComponentProps integration
+
+- **WHEN** route component needs access to router data
+- **THEN** component SHALL accept `Route.ComponentProps` parameter
+- **AND** SHALL have access to `loaderData`, `actionData`, `params`, and `matches`
+- **AND** SHALL use TypeScript for type safety
+
+#### Scenario: Form submissions (future)
+
+- **WHEN** route handles form submissions
+- **THEN** action functions SHALL be co-located with route components
+- **AND** form results SHALL be accessible via `actionData` prop
+- **AND** components SHALL use React Router's `<Form />` component
+
+#### Scenario: Route parameters
+
+- **WHEN** route contains dynamic parameters (e.g., `:taskId`)
+- **THEN** parameters SHALL be accessible via `params` prop
+- **AND** SHALL be properly typed in TypeScript
+- **AND** SHALL be used for data fetching in loader functions
+
+#### Scenario: Lazy loading with data fetching
+
+- **WHEN** route requires both code splitting and data loading
+- **THEN** both `Component` lazy loading and `loader` functions SHALL be used together
+- **AND** data SHALL be pre-fetched while component code loads
+- **AND** users SHALL experience instant data availability on render
 
 ### Requirement: Testing infrastructure setup
 
@@ -87,7 +128,7 @@ The system SHALL provide a comprehensive testing setup with unit testing, integr
 #### Scenario: Writing unit tests
 
 - **WHEN** developer creates a component
-- **THEN** they SHALL be able to write unit tests using Jest and React Testing Library
+- **THEN** they SHALL be able to write unit tests using Vitest and React Testing Library
 
 #### Scenario: Running test coverage
 
@@ -132,3 +173,37 @@ The system SHALL provide npm scripts for common development tasks including star
 
 - **WHEN** developer runs `npm run build`
 - **THEN** application SHALL be built and optimized for production deployment
+
+#### Scenario: Code quality checks
+
+- **WHEN** developer runs `npm run type-check`
+- **THEN** TypeScript SHALL perform type checking without emitting files
+
+- **WHEN** developer runs `npm run lint`
+- **THEN** ESLint SHALL check for code quality issues
+
+- **WHEN** developer runs `npm run format`
+- **THEN** Prettier SHALL format code according to project standards
+
+### Requirement: Development workflow automation
+
+The system SHALL provide automated development workflow with pre-commit hooks and code quality enforcement.
+
+#### Scenario: Pre-commit code quality
+
+- **WHEN** developer attempts to commit code
+- **THEN** pre-commit hooks SHALL run linting and formatting
+- **THEN** code SHALL be automatically fixed when possible
+- **THEN** commit SHALL be blocked if quality checks fail
+
+#### Scenario: TypeScript path mapping
+
+- **WHEN** developer imports components using aliases
+- **THEN** TypeScript SHALL resolve `@ui/*` paths correctly
+- **THEN** ESLint SHALL validate import paths and structure
+
+#### Scenario: Import organization
+
+- **WHEN** developer writes imports
+- **THEN** ESLint SHALL enforce proper import order and grouping
+- **THEN** duplicate imports SHALL be automatically detected and prevented
