@@ -26,3 +26,9 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# UX Design Assets (uncomment to ignore binary mockups in git)
+# docs/ux/mockups/*.png
+# docs/ux/mockups/*.jpg
+# docs/ux/mockups/*.sketch
+# docs/ux/mockups/*.fig

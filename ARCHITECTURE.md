@@ -444,7 +444,7 @@ src/
 
 ---
 
-**Document Owner**: Tech Lead  
-**Last Updated**: [Current Date]  
+**Document Owner**: Alireza Farifteh  
+**Last Updated**: April 15, 2026  
 **Version**: 1.0  
 **Enforcement**: Pre-commit hooks + PR reviews

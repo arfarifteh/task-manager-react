@@ -380,6 +380,14 @@ pnpm build:analyze
 pnpm build && npx lighthouse http://localhost:4173
 ```
 
+## 🎨 Design Resources
+
+### UX Mockups
+
+- [Main Application Mockup](./docs/ux/mockups/task-manager-dashboard-mockup-design.png) - Complete UI design reference
+
+View all mockups in the [`docs/ux/mockups/`](./docs/ux/mockups/) directory.
+
 ## 🤝 Contributing
 
 This is a personal learning project designed to demonstrate React best practices. Feel free to:
