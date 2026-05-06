@@ -74,6 +74,35 @@
   - [ ] 3.9.3.2 Add TypeScript types for route parameters
   - [ ] 3.9.3.3 Update navigation to use dynamic links
 
+## 3.10 Architecture Guidelines Implementation
+
+- [x] 3.10.1 Create ARCHITECTURE.md with feature-based structure rules
+  - [x] 3.10.1.1 Document Rule 1: Feature-based structure (mandatory)
+  - [x] 3.10.1.2 Document Rule 2: Separation of concerns (mandatory)
+  - [x] 3.10.1.3 Document Rule 3: State management strategy (mandatory)
+  - [x] 3.10.1.4 Document Rule 4: Consistency and patterns (mandatory)
+  - [x] 3.10.1.5 Document Rule 5: Shared layer governance (mandatory)
+  - [x] 3.10.1.6 Document Rule 6: Code quality gates (mandatory)
+- [ ] 3.10.2 Set up ESLint rules to enforce architecture patterns
+  - [ ] 3.10.2.1 Add import order rules (React → libs → shared → feature → relative)
+  - [ ] 3.10.2.2 Add folder structure enforcement rules
+  - [ ] 3.10.2.3 Add component size warnings (>150 lines)
+  - [ ] 3.10.2.4 Add forbidden pattern rules (no cross-feature imports)
+- [ ] 3.10.3 Create feature structure templates
+  - [ ] 3.10.3.1 Create feature generator script/template
+  - [ ] 3.10.3.2 Add component boilerplate with proper structure
+  - [ ] 3.10.3.3 Add hook boilerplate with documentation
+  - [ ] 3.10.3.4 Add service/api boilerplate
+- [x] 3.10.4 Set up pre-commit enforcement
+  - [x] 3.10.4.1 Verify architecture rules in pre-commit hook
+  - [x] 3.10.4.2 Add architecture checklist to PR template
+  - [x] 3.10.4.3 Document architecture review process
+- [x] 3.10.5 Update documentation to reference architecture rules
+  - [x] 3.10.5.1 Update README.md with architecture section
+  - [x] 3.10.5.2 Add ARCHITECTURE.md reference to project structure
+  - [x] 3.10.5.3 Update feature development workflow with rules
+  - [x] 3.10.5.4 Update spec.md with architecture requirements
+
 ## 4. Component Development (Clean Separation)
 
 ### Pure UI Components (Unit Tests Only)

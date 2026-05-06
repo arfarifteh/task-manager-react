@@ -46,45 +46,52 @@ This project demonstrates professional React development practices and serves as
 
 ## 📁 Project Architecture
 
+### Architecture Guidelines
+
+**⚠️ IMPORTANT**: All developers must follow the architecture rules defined in [ARCHITECTURE.md](./ARCHITECTURE.md). This document contains 6 mandatory rules for:
+
+1. **Feature-based structure** - Co-location by domain
+2. **Separation of concerns** - Presentational vs Container components
+3. **State management strategy** - Progressive escalation (Local → Feature → Global)
+4. **Consistency & patterns** - Naming conventions and code organization
+5. **Shared layer governance** - Promotion rules for reusable components
+6. **Code quality gates** - Enforcement through ESLint and PR reviews
+
+### Project Structure
+
 ```
 src/
-components/ui/           # Pure component library
-  Button/              # Button component (no Storybook deps)
-    Button.tsx         # Component implementation
-    Button.test.tsx    # Component tests
-    index.ts           # Component export
-  TextField/           # TextField component
-    TextField.tsx      # Component implementation
-    TextField.test.tsx # Component tests
-    index.ts           # Component export
-  Card/                # Card component
-    Card.tsx           # Component implementation
-    Card.test.tsx      # Component tests
-    index.ts           # Component export
-  index.ts             # Library barrel export
-stories/UI/              # Storybook documentation only
-  Showcase.stories.tsx  # Main showcase (top-level entry point)
-  Learning.stories.tsx  # Learning patterns overview
-  Roadmap.stories.tsx   # Future components roadmap
-  InputComponents/      # Input category stories
-    Button.stories.tsx  # Button Playground, Variants, Accessibility
-    TextField.stories.tsx
-  DisplayComponents/    # Display category stories
-    Card.stories.tsx   # Card Playground, Variants, Accessibility
-src/theme/              # Shared theme configuration
-  light.ts             # Light theme configuration
-  dark.ts              # Dark theme configuration
-  index.ts             # Theme exports and provider
-assets/                 # Static assets
-hooks/                  # Global custom hooks
-types/                  # Global TypeScript types
-utils/                  # Pure utility functions
-services/               # API and data layer
-.storybook/             # Storybook configuration
-  main.ts              # Storybook main configuration
-  preview.ts           # Storybook preview settings
-App.tsx                # Root application component
+├── features/                # Domain features (MANDATORY structure)
+│   ├── tasks/              # Task management domain
+│   │   ├── components/     # Task-specific UI components
+│   │   ├── hooks/          # Task business logic hooks
+│   │   ├── services/       # Task API layer
+│   │   └── types.ts        # Task TypeScript definitions
+│   └── auth/               # Authentication domain (future)
+├── components/ui/           # Shared design system (REUSABLE ONLY)
+│   ├── Button/             # Button component (3+ use cases required)
+│   ├── TextField/          # TextField component
+│   └── Card/               # Card component
+├── shared/                  # Cross-cutting concerns
+│   ├── hooks/              # Generic hooks (useDebounce, etc.)
+│   ├── services/           # API client, error handling
+│   └── utils/              # Date, validation, formatting
+├── routes/                  # React Router co-located routes
+│   ├── root.tsx            # Layout with ThemeProvider
+│   ├── index.tsx           # Home page
+│   └── tasks.tsx           # Tasks page
+├── stories/UI/              # Storybook documentation
+├── theme/                   # Shared theme configuration
+├── assets/                  # Static assets
+└── App.tsx                  # Root application component
 ```
+
+### Key Principles
+
+- **Progressive Complexity**: Start simple, add complexity only when proven necessary
+- **Feature Co-location**: Each domain owns its components, hooks, services, and types
+- **Clean Separation**: Presentational components (UI) + Container components (logic)
+- **State Escalation**: Local → Feature → Global (in that order)
 
 ## 🚀 Getting Started
 
@@ -283,12 +290,22 @@ import type { ButtonProps } from '@ui';
 
 ### Feature Development
 
-1. Create feature branch: `git checkout -b feature/feature-name`
-2. Follow project structure for new features
-3. Write tests for new functionality
-4. Ensure all tests pass: `pnpm test`
-5. Run linting and formatting: `pnpm lint && pnpm format`
-6. Submit pull request for review
+1. **Read Architecture Guidelines**: Review [ARCHITECTURE.md](./ARCHITECTURE.md) before starting
+2. **Create feature branch**: `git checkout -b feature/feature-name`
+3. **Follow feature structure**:
+   ```
+   src/features/[feature-name]/
+   ├── components/         # Presentational components
+   ├── hooks/             # Feature-specific hooks
+   ├── services/          # API layer
+   └── types.ts           # TypeScript definitions
+   ```
+4. **Apply separation of concerns**: Container components (logic) + Presentational components (UI)
+5. **Escalate state progressively**: Local → Feature → Global (only when needed)
+6. **Write tests for presentational components** (unit tests only)
+7. **Ensure all checks pass**: `pnpm type-check && pnpm lint && pnpm test:ci`
+8. **Complete PR checklist**: All 6 architecture rules must be checked
+9. **Submit pull request** for review using provided template
 
 ### Code Quality Standards
 

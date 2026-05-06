@@ -207,3 +207,39 @@ The system SHALL provide automated development workflow with pre-commit hooks an
 - **WHEN** developer writes imports
 - **THEN** ESLint SHALL enforce proper import order and grouping
 - **THEN** duplicate imports SHALL be automatically detected and prevented
+
+### Requirement: Architecture rules and guidelines
+
+The system SHALL provide comprehensive architecture guidelines that enforce feature-based structure, separation of concerns, and progressive state management.
+
+#### Scenario: Feature-based structure
+
+- **WHEN** developer creates new functionality
+- **THEN** code SHALL be organized in `src/features/[domain]/` directory
+- **AND** feature SHALL contain `components/`, `hooks/`, `services/`, and `types.ts`
+- **AND** no cross-feature imports SHALL be allowed (use shared layer instead)
+- **AND** shared components SHALL only be added to `components/ui/` after 3+ use cases
+
+#### Scenario: Separation of concerns
+
+- **WHEN** developer creates components
+- **THEN** presentational components SHALL NOT contain API calls or business logic
+- **AND** container components SHALL handle all side effects and data fetching
+- **AND** component size SHALL be under 150 lines OR documented exception
+- **AND** props SHALL be properly typed with TypeScript interfaces
+
+#### Scenario: State management strategy
+
+- **WHEN** developer needs state management
+- **THEN** local state SHALL be used first (useState, useReducer)
+- **AND** feature state SHALL be escalated when 2+ components need it (custom hooks)
+- **AND** global state SHALL only be used when cross-feature or persistent (Zustand/Redux)
+- **AND** prop drilling beyond 2 levels SHALL be avoided (use Context or hooks)
+
+#### Scenario: Architecture documentation
+
+- **WHEN** new developer joins the project
+- **THEN** ARCHITECTURE.md SHALL provide comprehensive rule documentation
+- **AND** README.md SHALL reference architecture guidelines
+- **AND** PR template SHALL include architecture checklist
+- **AND** all 6 core rules SHALL be enforced through code reviews

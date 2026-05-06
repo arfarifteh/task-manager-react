@@ -54,6 +54,19 @@ The current task manager application has a basic Vite + React 19 + TypeScript se
 - Alternative considered: Basic router with pages - rejected for scalability
 - Evolution path: Lazy loading (current) + Data loading (future) + Full features (advanced)
 
+**Architecture Rules (Mandatory)**
+
+- See [ARCHITECTURE.md](../../ARCHITECTURE.md) for comprehensive rule set
+- All team members must follow the 6 core rules:
+  1. Feature-based structure (co-location by domain)
+  2. Separation of concerns (presentational vs container)
+  3. State management strategy (progressive escalation)
+  4. Consistency & patterns (enforced by ESLint)
+  5. Shared layer governance (promotion rules)
+  6. Code quality gates (pre-commit enforcement)
+- Rationale: Consistency is key for maintainability at scale
+- Enforcement: ESLint rules + PR checklist + pre-commit hooks
+
 **State Management Strategy**
 
 - Start with React Context + useReducer for simple state management
