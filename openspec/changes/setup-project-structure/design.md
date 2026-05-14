@@ -741,26 +741,165 @@ function App() {
 }
 ```
 
-**Next Steps (Future):**
+### Fc (Fusion Core) UI Component Layer
 
-- Build component library based on Storybook patterns
-- Create task management features using learned patterns
-- Expand interactive learning examples with advanced patterns
-- Add accessibility testing in Storybook
+**Decision: Zero direct MUI imports in application code.**
+
+All Material UI components are wrapped inside `src/components/ui/Fc*.tsx` files. Application code (routes, features, pages) imports exclusively from the Fc layer.
+
+**Rationale:**
+
+- Decouples app code from MUI — enables easy library swap or upgrade
+- Enforces consistent variants across the entire app
+- Simplifies consumption — boolean props instead of MUI's verbose prop API
+- Centralizes styling changes to one location per component
+
+**Naming Convention:** `Fc` prefix + component purpose → `FcButton`, `FcCard`, `FcTypography`
+
+**Variant API:** Boolean props that map to internal MUI configuration:
+
+```tsx
+// Application code — clean, declarative
+<FcButton primary>Save Task</FcButton>
+<FcButton danger outlined small>Delete</FcButton>
+<FcChip high>High Priority</FcChip>
+<FcTypography h2>Dashboard</FcTypography>
+<FcCard elevated>...</FcCard>
+
+// Internal implementation (hidden from app code)
+// FcButton maps: primary → variant="contained" color="primary"
+// FcChip maps: high → color="error"
+```
+
+**Directory Structure:**
+
+```
+src/components/ui/
+├── FcBox.tsx              # Layout
+├── FcStack.tsx
+├── FcGrid.tsx
+├── FcTypography.tsx       # Text
+├── FcButton.tsx           # Interactive
+├── FcIconButton.tsx
+├── FcTextField.tsx
+├── FcSelect.tsx
+├── FcCard.tsx             # Data display
+├── FcChip.tsx
+├── FcBadge.tsx
+├── FcAvatar.tsx
+├── FcTabs.tsx
+├── FcAlert.tsx            # Feedback
+├── FcSkeleton.tsx
+├── FcCircularProgress.tsx
+├── FcDrawer.tsx           # Navigation
+├── FcList.tsx
+├── index.ts              # Barrel export
+└── types.ts              # Shared Fc prop types
+```
+
+**Import Restriction:**
+
+```
+✅ import { FcButton, FcCard } from '@/components/ui';
+❌ import Button from '@mui/material/Button';  // FORBIDDEN in app code
+```
+
+Only files inside `src/components/ui/` may import from `@mui/material` or `@mui/icons-material`.
+
+---
+
+### Dashboard-First Implementation Strategy
+
+> Reference mockup: `docs/ux/mockups/task-manager-dashboard-mockup-design.png`
+
+**Decision: Build features top-down from mockup, not bottom-up from generic components.**
+
+- Rationale: The mockup defines exact component needs. New Fc wrappers are added as the dashboard requires them.
+- Higher-level Fc composites (e.g., `FcSummaryCard`, `FcStatusChip`) emerge when patterns repeat across features.
+
+#### Mockup Decomposition
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ Sidebar (Drawer)    │  AppHeader (Welcome, Notifications)    │
+│ ─ Logo              │────────────────────────────────────────│
+│ ─ Dashboard         │  StatsCardsRow                         │
+│ ─ My Tasks          │  [Tasks Today] [In Progress] [Completed]│
+│ ─ Analytics         │────────────────────────────────────────│
+│ ─ Calendar          │  QuickAddTask        │ TaskOverview    │
+│ ─ Settings          │  [Title] [Priority]  │ (Donut Chart)   │
+│                     │  [Date] [+ Add Task] │                 │
+│                     │──────────────────────│ UpcomingDeadlines│
+│                     │  TaskList            │ ─ Item 1        │
+│                     │  Tabs: All|IP|Done   │ ─ Item 2        │
+│                     │  TaskRow x N         │                 │
+│                     │──────────────────────│                 │
+│  User Avatar        │  ActivityFeed        │                 │
+│  [Alireza]          │  ─ Activity 1        │                 │
+│                     │  ─ Activity 2        │                 │
+└──────────────────────────────────────────────────────────────┘
+```
+
+#### Feature Structure
+
+```
+src/features/dashboard/
+├── components/                    # Presentational (pure UI)
+│   ├── Sidebar.tsx               # MUI Drawer + navigation
+│   ├── AppHeader.tsx             # Welcome, notifications, logout
+│   ├── StatsCard.tsx             # Single stat card
+│   ├── StatsCardsRow.tsx         # 3-card row
+│   ├── QuickAddTask.tsx          # Add task form
+│   ├── TaskTabs.tsx              # All/In Progress/Completed tabs
+│   ├── TaskFilters.tsx           # Filter + Sort dropdowns
+│   ├── TaskRow.tsx               # Single task row with actions
+│   ├── TaskList.tsx              # Composes tabs + filters + rows
+│   ├── TaskOverviewChart.tsx     # Donut chart
+│   ├── UpcomingDeadlines.tsx     # Deadline list
+│   ├── ActivityFeed.tsx          # Activity timeline
+│   ├── ActivityItem.tsx          # Single activity entry
+│   └── DashboardLayout.tsx       # Grid layout (container)
+├── hooks/                         # Business logic
+│   ├── useDashboard.ts           # Aggregate dashboard data
+│   ├── useTaskActions.ts         # Add, complete, delete tasks
+│   └── useTaskFilters.ts         # Filter and sort logic
+├── services/
+│   └── dashboardApi.ts           # API layer (mock initially)
+└── types.ts                       # Dashboard-specific types
+```
+
+#### Component → Fc Mapping
+
+| Mockup Element     | Fc Components Used                                         |
+| ------------------ | ---------------------------------------------------------- |
+| Sidebar            | FcDrawer, FcList, FcListItemButton, FcAvatar, FcTypography |
+| Header             | FcBox, FcTypography, FcBadge, FcIconButton, FcButton       |
+| Stats Cards        | FcCard, FcTypography, FcChip                               |
+| Quick Add Task     | FcTextField, FcSelect, FcButton                            |
+| Task Tabs          | FcTabs, FcTab                                              |
+| Task Row           | FcChip, FcTypography, FcIconButton                         |
+| Task Overview      | FcBox + chart library (recharts or nivo)                   |
+| Upcoming Deadlines | FcList, FcTypography                                       |
+| Activity Feed      | FcBox, FcTypography, FcAvatar                              |
+
+### Code Review Findings (Resolved)
+
+The following issues were identified during a senior-level code review and addressed in the pre-dashboard cleanup phase:
+
+1. **MUI adoption** — Replaced raw inline styles with MUI components and `sx` prop across all routes and UI components.
+2. **Hover handling** — Removed JS `onMouseOver`/`onMouseOut` handlers; hover effects now use CSS via MUI `sx` `'&:hover'` selectors.
+3. **Route alignment** — Updated routes to match mockup pages (Dashboard, My Tasks, Analytics, Calendar, Settings).
+4. **Domain types** — TypeScript types for Task, User, Priority, Status to be defined before building UI (Section 5).
+5. **Route error handling** — `RouteErrorBoundary` now uses `useRouteError()` from React Router for meaningful error context.
+6. **Theme consistency** — All colors reference `theme.palette` or exported sidebar tokens; no hardcoded hex values in components.
 
 ## Open Questions
 
 **Resolved:**
 
-- **Routing**: React Router (can migrate later if needed)
-- **Styling**: Material UI (MUI) component library
-- **State Management**: Wait until features demand it
-
-**Additional Learning Opportunities:**
-
-- What advanced React patterns do you want to explore (Compound Components, Render Props, etc.)?
-- Any specific performance optimization techniques for CSR you want to practice?
-- Should we add accessibility features as a learning focus?
-- Want to explore build optimization and code splitting strategies for CSR?
-- Interested in learning about client-side state management patterns?
-- Want to experiment with progressive web app (PWA) features?
+- **Routing**: React Router with co-located routes
+- **Styling**: Material UI — MUST use MUI components, not inline styles
+- **State Management**: Local + feature hooks first, global when proven needed
+- **Implementation Strategy**: Dashboard-first, mockup-driven, feature-based
+- **Component Promotion**: Build in feature first, promote to shared after 3+ uses
+- **Chart Library**: TBD — recharts or nivo for TaskOverview donut chart

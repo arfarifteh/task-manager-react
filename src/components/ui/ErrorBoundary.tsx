@@ -1,4 +1,11 @@
 import React from 'react';
+import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Collapse from '@mui/material/Collapse';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -48,75 +55,88 @@ function DefaultErrorFallback({
   error: Error;
   reset: () => void;
 }) {
+  const [showDetails, setShowDetails] = React.useState(false);
+
   return (
-    <div
-      role="alert"
-      style={{
-        padding: '20px',
-        margin: '20px',
-        border: '1px solid #ff6b6b',
-        borderRadius: '8px',
-        backgroundColor: '#ffe0e0',
-        color: '#d63031',
-      }}>
-      <h2>Something went wrong</h2>
-      <p>We encountered an unexpected error. Please try again.</p>
-      <details style={{ marginTop: '10px' }}>
-        <summary>Error details</summary>
-        <pre style={{ fontSize: '12px', marginTop: '10px' }}>
-          {error.message}
-        </pre>
-      </details>
-      <button
-        onClick={reset}
-        style={{
-          marginTop: '15px',
-          padding: '8px 16px',
-          backgroundColor: '#d63031',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}>
-        Try again
-      </button>
-    </div>
+    <Box role="alert" sx={{ p: 2.5, m: 2.5 }}>
+      <Alert
+        severity="error"
+        action={
+          <Button color="inherit" size="small" onClick={reset}>
+            Try again
+          </Button>
+        }>
+        <AlertTitle>Something went wrong</AlertTitle>
+        We encountered an unexpected error. Please try again.
+      </Alert>
+      <Box sx={{ mt: 1.5 }}>
+        <Button
+          size="small"
+          variant="text"
+          onClick={() => setShowDetails(prev => !prev)}>
+          {showDetails ? 'Hide' : 'Show'} error details
+        </Button>
+        <Collapse in={showDetails}>
+          <Typography
+            component="pre"
+            variant="body2"
+            sx={{
+              mt: 1,
+              p: 1.5,
+              bgcolor: 'grey.100',
+              borderRadius: 1,
+              fontSize: '0.75rem',
+              overflow: 'auto',
+            }}>
+            {error.message}
+          </Typography>
+        </Collapse>
+      </Box>
+    </Box>
   );
 }
 
-// Route-specific error boundaries
-export function RouteErrorBoundary({ reset }: { reset: () => void }) {
+// Route-specific error boundary — uses React Router's useRouteError()
+export function RouteErrorBoundary() {
+  const error = useRouteError();
+
+  let title = 'Page Load Error';
+  let message =
+    'This page failed to load properly. Please check your connection and try again.';
+
+  if (isRouteErrorResponse(error)) {
+    title = `${error.status} — ${error.statusText}`;
+    message =
+      typeof error.data === 'string'
+        ? error.data
+        : 'An unexpected route error occurred.';
+  } else if (error instanceof Error) {
+    message = error.message;
+  }
+
   return (
-    <div
+    <Box
       role="alert"
-      style={{
-        padding: '40px 20px',
+      sx={{
+        p: 5,
         textAlign: 'center',
-        minHeight: '200px',
+        minHeight: 200,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        gap: 2,
       }}>
-      <h2 style={{ color: '#d63031', marginBottom: '10px' }}>
-        Page Load Error
-      </h2>
-      <p style={{ color: '#636e72', marginBottom: '20px' }}>
-        This page failed to load properly. Please check your connection and try
-        again.
-      </p>
-      <button
-        onClick={reset}
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#0984e3',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}>
+      <Alert severity="error" sx={{ maxWidth: 480 }}>
+        <AlertTitle>{title}</AlertTitle>
+        {message}
+      </Alert>
+      <Button
+        variant="contained"
+        onClick={() => window.location.reload()}
+        sx={{ mt: 1 }}>
         Reload Page
-      </button>
-    </div>
+      </Button>
+    </Box>
   );
 }

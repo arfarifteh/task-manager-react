@@ -243,3 +243,116 @@ The system SHALL provide comprehensive architecture guidelines that enforce feat
 - **AND** README.md SHALL reference architecture guidelines
 - **AND** PR template SHALL include architecture checklist
 - **AND** all 6 core rules SHALL be enforced through code reviews
+
+### Requirement: Fc (Fusion Core) UI Component Layer
+
+The system SHALL provide a shared UI component library (`src/components/ui/`) that wraps Material UI. Application code SHALL NOT import directly from `@mui/material` or `@mui/icons-material`.
+
+#### Scenario: Fc component usage in application code
+
+- **WHEN** developer builds a feature or route page
+- **THEN** it SHALL import only from `src/components/ui/` (Fc components)
+- **AND** SHALL NOT import directly from `@mui/material`
+- **AND** SHALL NOT use inline `style={{}}` attributes
+- **AND** SHALL use Fc boolean props for variants (e.g., `<FcButton primary>`)
+
+#### Scenario: Fc component implementation
+
+- **WHEN** developer creates an Fc component in `src/components/ui/`
+- **THEN** it SHALL wrap the corresponding MUI component
+- **AND** SHALL expose variants as boolean props
+- **AND** SHALL use `sx` prop internally for styling
+- **AND** colors SHALL reference `theme.palette`
+- **AND** SHALL follow naming convention `Fc` + component name (e.g., `FcButton`, `FcCard`)
+
+#### Scenario: Adding a new Fc component
+
+- **WHEN** a feature requires a MUI component not yet wrapped
+- **THEN** a new Fc wrapper SHALL be created in `src/components/ui/`
+- **AND** SHALL be exported from the barrel `index.ts`
+- **AND** SHALL NOT be imported from MUI directly in the feature code
+
+#### Scenario: Route error boundaries
+
+- **WHEN** a route fails to load
+- **THEN** errorElement SHALL use `useRouteError()` from React Router
+- **AND** SHALL display the actual error message from the router
+- **AND** SHALL use FcAlert and FcButton for error UI
+
+### Requirement: Domain model and type safety
+
+The system SHALL define TypeScript types for all domain entities before building UI components.
+
+#### Scenario: Task domain types
+
+- **WHEN** developer builds task-related features
+- **THEN** `Task`, `TaskStatus`, `TaskPriority`, `TaskFilter` types SHALL be defined in `src/types/task.ts`
+- **AND** all components SHALL use these types for props
+- **AND** mock data SHALL conform to these types
+
+#### Scenario: Dashboard domain types
+
+- **WHEN** developer builds dashboard features
+- **THEN** `DashboardStats`, `TaskOverview`, `ActivityItem` types SHALL be defined
+- **AND** service layer SHALL return typed data
+
+### Requirement: Dashboard feature implementation
+
+The system SHALL implement the dashboard as a feature module following ARCHITECTURE.md rules, driven by the UX mockup.
+
+#### Scenario: Dashboard layout
+
+- **WHEN** user navigates to the dashboard
+- **THEN** the page SHALL display a sidebar, header, stats cards, task list, overview chart, deadlines, and activity feed
+- **AND** layout SHALL match `docs/ux/mockups/task-manager-dashboard-mockup-design.png`
+
+#### Scenario: App shell (sidebar + header)
+
+- **WHEN** application loads
+- **THEN** a persistent sidebar SHALL display navigation items: Dashboard, My Tasks, Analytics, Calendar, Settings
+- **AND** the active route SHALL be visually highlighted
+- **AND** header SHALL show welcome message, notification badge, and logout button
+- **AND** sidebar SHALL use MUI Drawer with ListItemButton components
+
+#### Scenario: Stats cards
+
+- **WHEN** dashboard loads
+- **THEN** 3 stats cards SHALL display: Tasks Today, In Progress, Completed
+- **AND** each card SHALL show a count and a highlight item name
+
+#### Scenario: Quick add task
+
+- **WHEN** user fills in the quick add form
+- **THEN** form SHALL accept task title, priority (High/Medium/Low), and due date
+- **AND** clicking "Add Task" SHALL create a new task
+- **AND** form SHALL validate required fields before submission
+
+#### Scenario: Task list with tabs and filters
+
+- **WHEN** user views the task list
+- **THEN** tabs SHALL filter between All Tasks, In Progress, and Completed
+- **AND** filter and sort dropdowns SHALL be available
+- **AND** each task row SHALL display checkbox, title, priority chip, due date, and action buttons (start, view, edit, delete)
+
+#### Scenario: Task overview chart
+
+- **WHEN** dashboard loads
+- **THEN** a donut chart SHALL display task status distribution (In Progress, Completed, Pending)
+- **AND** percentages SHALL be shown in a legend
+
+#### Scenario: Activity feed
+
+- **WHEN** dashboard loads
+- **THEN** an activity feed SHALL display recent actions with timestamps
+- **AND** each entry SHALL have a colored indicator and descriptive text
+
+### Requirement: Component promotion governance
+
+The system SHALL promote components from feature-level to shared level only after proven reuse.
+
+#### Scenario: Shared component promotion
+
+- **WHEN** a presentational component is used in 3+ features
+- **THEN** it SHALL be extracted to `src/components/ui/`
+- **AND** original feature imports SHALL be updated to use shared path
+- **AND** component SHALL have unit tests and Storybook documentation

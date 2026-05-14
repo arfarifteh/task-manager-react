@@ -279,35 +279,69 @@ interface TaskCardProps {
 
 ---
 
-## Rule 5: Shared Layer Governance (MANDATORY)
+## Rule 5: Fc (Fusion Core) UI Layer (MANDATORY)
 
-### Promotion Rules
+### Principle: Zero Direct MUI Imports in Application Code
+
+All Material UI components are wrapped in `src/components/ui/Fc*.tsx` files. Application code (routes, features, pages) imports **exclusively** from the Fc layer.
 
 ```typescript
-// ❌ FORBIDDEN: Adding to shared layer without 3+ use cases
-// Adding Button to components/ui/ when only used in 1 feature
+// ✅ CORRECT: Import from Fc layer
+import { FcButton, FcCard, FcTypography } from '@/components/ui';
 
-// ✅ REQUIRED: Prove reusability before promotion
-// Step 1: Create in feature
-// features/tasks/components/Button.tsx (initially)
+<FcButton primary>Save Task</FcButton>
+<FcCard elevated>...</FcCard>
+<FcTypography h2>Dashboard</FcTypography>
 
-// Step 2: Use in multiple features
-// features/auth/components/Button.tsx (copy)
-// features/settings/components/Button.tsx (copy)
+// ❌ FORBIDDEN: Direct MUI import in app code
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+```
 
-// Step 3: Extract to shared layer
-// components/ui/Button.tsx (when 3+ use cases confirmed)
+### Fc Component Rules
+
+- **Naming**: `Fc` prefix + component name → `FcButton`, `FcCard`, `FcDrawer`
+- **Variants**: Exposed as boolean props → `<FcButton primary>`, `<FcChip high>`
+- **Scope**: Only `src/components/ui/` files may import from `@mui/material` or `@mui/icons-material`
+- **Expansion**: New Fc components are added when a feature needs a MUI component not yet wrapped
+
+### Higher-Level Fc Composites
+
+When a UI pattern repeats across features, create a composite Fc component:
+
+```typescript
+// Pattern repeats 3+ times → promote to composite
+// FcStatusChip — maps priority/status to color
+// FcSummaryCard — stats card with count + label + icon
+// FcActionGroup — row of icon buttons (edit/delete/view)
 ```
 
 ### Shared Layer Structure
 
 ```
+src/components/ui/         # Fc (Fusion Core) UI component library
+├── FcBox.tsx             # Layout primitives
+├── FcStack.tsx
+├── FcGrid.tsx
+├── FcTypography.tsx      # Text
+├── FcButton.tsx          # Interactive
+├── FcIconButton.tsx
+├── FcTextField.tsx
+├── FcSelect.tsx
+├── FcCard.tsx            # Data display
+├── FcChip.tsx
+├── FcBadge.tsx
+├── FcAvatar.tsx
+├── FcTabs.tsx
+├── FcAlert.tsx           # Feedback
+├── FcSkeleton.tsx
+├── FcCircularProgress.tsx
+├── FcDrawer.tsx          # Navigation
+├── FcList.tsx
+├── index.ts             # Barrel export
+└── types.ts             # Shared Fc prop types
+
 shared/                    # Cross-cutting concerns
-├── components/ui/        # Design system (REUSABLE ONLY)
-│   ├── Button/
-│   ├── Card/
-│   ├── Input/
-│   └── index.ts
 ├── hooks/                # Generic hooks
 │   ├── useDebounce.ts
 │   ├── useLocalStorage.ts

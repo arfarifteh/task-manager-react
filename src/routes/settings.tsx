@@ -2,13 +2,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import WidgetsIcon from '@mui/icons-material/Widgets';
+import SettingsIcon from '@mui/icons-material/Settings';
 
-export default function ComponentLibraryPage() {
+export default function SettingsPage() {
   return (
     <Box>
       <Typography variant="h2" sx={{ mb: 2 }}>
-        Component Library
+        Settings
       </Typography>
       <Card>
         <CardContent
@@ -20,13 +20,12 @@ export default function ComponentLibraryPage() {
             alignItems: 'center',
             gap: 2,
           }}>
-          <WidgetsIcon sx={{ fontSize: 48, color: 'text.secondary' }} />
+          <SettingsIcon sx={{ fontSize: 48, color: 'text.secondary' }} />
           <Typography variant="h3" color="text.secondary">
-            Shared UI Components
+            Application Settings
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Components will be promoted here after 3+ uses across features (Rule
-            5).
+            Theme, notifications, and preferences coming soon.
           </Typography>
         </CardContent>
       </Card>

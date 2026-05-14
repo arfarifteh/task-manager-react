@@ -103,81 +103,184 @@
   - [x] 3.10.5.3 Update feature development workflow with rules
   - [x] 3.10.5.4 Update spec.md with architecture requirements
 
-## 4. Component Development (Clean Separation)
+## 4. Pre-Dashboard Cleanup (MUI Migration & Route Alignment)
 
-### Pure UI Components (Unit Tests Only)
+### 4.1 Replace Inline Styles with MUI (CRITICAL)
 
-- [ ] 4.1 Create Button component in `src/components/ui/Button/` (no Storybook dependencies)
-- [ ] 4.2 Create Button unit test in `src/components/ui/Button/Button.test.tsx` (rendering, props, events, a11y)
-- [ ] 4.3 Create TextField component in `src/components/ui/TextField/` (no Storybook dependencies)
-- [ ] 4.4 Create TextField unit test in `src/components/ui/TextField/TextField.test.tsx`
-- [ ] 4.5 Create Card component in `src/components/ui/Card/` (no Storybook dependencies)
-- [ ] 4.6 Create Card unit test in `src/components/ui/Card/Card.test.tsx`
-- [ ] 4.7 Create component library barrel export in `src/components/ui/index.ts`
+- [x] 4.1.1 Refactor `root.tsx` to use MUI components (AppBar, Drawer, Box, Typography)
+- [x] 4.1.2 Remove all inline styles and JS hover handlers from navigation
+- [x] 4.1.3 Refactor `ErrorBoundary.tsx` to use MUI Alert, Button, Typography
+- [x] 4.1.4 Refactor `LoadingStates.tsx` to use MUI Skeleton, CircularProgress
+- [x] 4.1.5 Update `RouteErrorBoundary` to use `useRouteError()` from React Router
 
-### Storybook Documentation (Improved Organization)
+### 4.2 Update Theme to Match Mockup
 
-- [ ] 4.8 Create UI stories directory structure in `src/stories/UI/`
-- [ ] 4.9 Create main showcase as top-level entry point in `src/stories/UI/Showcase.stories.tsx`
-- [ ] 4.10 Create learning patterns overview in `src/stories/UI/Learning.stories.tsx`
-- [ ] 4.11 Create Input Components category structure
-- [ ] 4.12 Create Button stories: Playground, Variants, Accessibility in `src/stories/UI/InputComponents/`
-- [ ] 4.13 Create TextField stories: Playground, Variants, Accessibility in `src/stories/UI/InputComponents/`
-- [ ] 4.14 Create Display Components category structure
-- [ ] 4.15 Create Card stories: Playground, Variants, Accessibility in `src/stories/UI/DisplayComponents/`
-- [ ] 4.16 Create component documentation through Storybook auto-docs
-- [ ] 4.17 Implement visual testing workflow with Storybook controls
-- [ ] 4.18 Add accessibility testing in Storybook stories
+- [x] 4.2.1 Update theme palette to match mockup colors (dark sidebar: `#1e2a3a`, primary: `#3a7bd5`)
+- [x] 4.2.2 Add sidebar-specific color tokens to theme
+- [x] 4.2.3 Configure MUI component default overrides in theme (Button, Card, Chip, Tab)
 
-### Testing Strategy (Unit Tests Only)
+### 4.3 Update Routes to Match Mockup Pages
 
-- [ ] 4.19 Define unit testing scope and boundaries for component library
-- [ ] 4.20 Create unit test templates for components (rendering, props, events, a11y)
-- [ ] 4.21 Configure Vitest with React Testing Library for unit testing
-- [ ] 4.22 Setup test coverage reporting and minimum coverage thresholds
-- [ ] 4.23 Document what to test vs what to skip (no integration tests)
-- [ ] 4.24 Create testing utilities and helpers for component tests
+- [x] 4.3.1 Add `/analytics` route (placeholder)
+- [x] 4.3.2 Add `/calendar` route (placeholder)
+- [x] 4.3.3 Add `/settings` route (placeholder)
+- [x] 4.3.4 Rename home route to Dashboard
+- [x] 4.3.5 Update router configuration with new routes
 
-### Import Standardization
+### 4.4 Create Fc (Fusion Core) UI Component Library
 
-- [ ] 4.25 Create comprehensive component library barrel exports in `src/components/ui/index.ts`
-- [ ] 4.26 Add TypeScript type exports alongside component exports
-- [ ] 4.27 Create grouped exports by category (InputComponents, DisplayComponents)
-- [ ] 4.28 Configure TypeScript path mapping for cleaner imports (`@ui/*` aliases)
-- [ ] 4.29 Setup ESLint import rules for consistency and validation
-- [ ] 4.30 Document import patterns and best practices
+> **Rule: Zero direct MUI imports in application code.** All MUI usage is encapsulated inside `src/components/ui/Fc*.tsx` wrappers. Variants are exposed as boolean props.
 
-### Theme Strategy (Shared Configuration)
+#### 4.4.1 Layout Primitives
 
-- [ ] 4.31 Create shared theme directory structure in `src/theme/`
-- [ ] 4.32 Create light theme configuration in `src/theme/light.ts`
-- [ ] 4.33 Create dark theme configuration in `src/theme/dark.ts`
-- [ ] 4.34 Create theme provider wrapper in `src/theme/index.ts`
-- [ ] 4.35 Configure Storybook to use shared theme provider
-- [ ] 4.36 Add theme switching controls in Storybook
-- [ ] 4.37 Ensure theme consistency between Storybook and production
+- [ ] `FcBox` — wraps MUI Box (pass-through `sx`, `component`)
+- [ ] `FcStack` — wraps MUI Stack (boolean: `row`, `column`, spacing shortcuts)
+- [ ] `FcGrid` — wraps MUI Grid (responsive layout)
 
-### Interactive Features
+#### 4.4.2 Typography
 
-- [ ] 4.38 Create MUI component variants and styling examples
-- [ ] 4.39 Create component roadmap in `src/stories/UI/Roadmap.stories.tsx`
-- [ ] 4.40 Implement interactive component builder in showcase
-- [ ] 4.41 Add code generation features for component combinations
+- [ ] `FcTypography` — wraps MUI Typography (boolean: `h1`, `h2`, `h3`, `body`, `caption`, `secondary`)
 
-## 5. Initial Implementation
+#### 4.4.3 Interactive Components
 
-- [ ] 5.1 Create initial feature structure for task management
-- [ ] 5.2 Set up React Router with basic page structure
-- [ ] 5.3 Implement initial MUI components (Button, TextField, Card)
-- [ ] 5.4 Create learning examples (compound components, custom hooks)
-- [ ] 5.5 Test development workflow and tooling
-- [ ] 5.6 Create project documentation and README with learning focus
-- [ ] 5.7 Validate all development scripts and configurations
+- [ ] `FcButton` — wraps MUI Button (boolean: `primary`, `secondary`, `danger`, `outlined`, `small`, `large`)
+- [ ] `FcIconButton` — wraps MUI IconButton (boolean: `small`, `primary`)
+- [ ] `FcTextField` — wraps MUI TextField (boolean: `fullWidth`, `error`)
+- [ ] `FcSelect` — wraps MUI Select + MenuItem
 
-## 6. Documentation & Validation
+#### 4.4.4 Data Display
 
-- [ ] 6.1 Update project documentation for Storybook-based learning
-- [ ] 6.2 Update README.md with Storybook instructions
-- [ ] 6.3 Validate Storybook startup and component workflow
-- [ ] 6.4 Test all component stories and interactive controls
-- [ ] 6.5 Ensure documentation matches implementation
+- [ ] `FcCard` — wraps MUI Card + CardContent (boolean: `elevated`, `outlined`, `noPadding`)
+- [ ] `FcChip` — wraps MUI Chip (boolean: `high`, `medium`, `low`, `success`, `warning`, `error`)
+- [ ] `FcBadge` — wraps MUI Badge (boolean: `error`, `primary`)
+- [ ] `FcAvatar` — wraps MUI Avatar (boolean: `small`, `medium`, `large`)
+- [ ] `FcTabs` / `FcTab` — wraps MUI Tabs + Tab
+
+#### 4.4.5 Feedback
+
+- [ ] `FcAlert` — wraps MUI Alert + AlertTitle (boolean: `error`, `warning`, `success`, `info`)
+- [ ] `FcSkeleton` — wraps MUI Skeleton (boolean: `text`, `rectangular`, `circular`)
+- [ ] `FcCircularProgress` — wraps MUI CircularProgress
+
+#### 4.4.6 Navigation
+
+- [ ] `FcDrawer` — wraps MUI Drawer (boolean: `permanent`, `temporary`)
+- [ ] `FcList` / `FcListItemButton` — wraps MUI List, ListItemButton, ListItemIcon, ListItemText
+
+#### 4.4.7 Infrastructure
+
+- [ ] Create `src/components/ui/index.ts` barrel export for all Fc components
+- [ ] Create `src/components/ui/types.ts` shared Fc prop utility types
+- [ ] Add ESLint rule or import restriction: disallow `@mui/material` imports outside `src/components/ui/`
+
+#### 4.4.8 Refactor Existing Code to Use Fc Layer
+
+- [ ] Refactor `root.tsx` — replace all direct MUI imports with Fc components
+- [ ] Refactor `ErrorBoundary.tsx` — use FcAlert, FcButton, FcBox, FcTypography
+- [ ] Refactor `LoadingStates.tsx` — use FcBox, FcSkeleton, FcCircularProgress, FcTypography
+- [ ] Refactor all route pages (analytics, calendar, settings, tasks, components, index) — use Fc components
+
+## 5. Domain Model & Data Layer (Foundation)
+
+### 5.1 Define Core TypeScript Types
+
+- [ ] 5.1.1 Create `src/types/task.ts` — Task, TaskStatus, TaskPriority, TaskFilter
+- [ ] 5.1.2 Create `src/types/user.ts` — User, UserProfile
+- [ ] 5.1.3 Create `src/types/activity.ts` — ActivityItem, ActivityType
+- [ ] 5.1.4 Create `src/types/dashboard.ts` — DashboardStats, TaskOverview
+- [ ] 5.1.5 Create `src/types/index.ts` barrel export
+
+### 5.2 Create Mock Data Layer
+
+- [ ] 5.2.1 Create `src/services/mockData.ts` — sample tasks matching mockup
+- [ ] 5.2.2 Create `src/services/taskService.ts` — CRUD operations on mock data
+- [ ] 5.2.3 Create `src/services/dashboardService.ts` — stats, overview, deadlines
+- [ ] 5.2.4 Create `src/services/activityService.ts` — activity feed data
+
+## 6. Dashboard Feature (Mockup-Driven)
+
+> Reference: `docs/ux/mockups/task-manager-dashboard-mockup-design.png`
+
+### 6.1 Dashboard Layout
+
+- [ ] 6.1.1 Create `src/features/dashboard/` feature structure
+- [ ] 6.1.2 Create `src/features/dashboard/types.ts`
+- [ ] 6.1.3 Create `DashboardLayout.tsx` — grid layout matching mockup zones
+- [ ] 6.1.4 Update `src/routes/index.tsx` to render DashboardLayout
+
+### 6.2 App Shell (Sidebar + Header)
+
+- [ ] 6.2.1 Create `Sidebar.tsx` — uses FcDrawer, FcList, FcListItemButton, FcAvatar
+- [ ] 6.2.2 Create `AppHeader.tsx` — uses FcTypography, FcBadge, FcIconButton, FcButton
+- [ ] 6.2.3 Update `root.tsx` to use Sidebar + AppHeader layout (replace current nav)
+- [ ] 6.2.4 Add active state styling using FcListItemButton + useLocation
+
+### 6.3 Stats Cards Row
+
+- [ ] 6.3.1 Create `StatsCard.tsx` — uses FcCard, FcTypography, FcChip
+- [ ] 6.3.2 Create `StatsCardsRow.tsx` — renders 3 cards (Tasks Today, In Progress, Completed)
+- [ ] 6.3.3 Add unit tests for StatsCard
+
+### 6.4 Quick Add Task Form
+
+- [ ] 6.4.1 Create `QuickAddTask.tsx` — uses FcTextField, FcSelect, FcButton
+- [ ] 6.4.2 Add local form state with validation
+- [ ] 6.4.3 Add unit tests for QuickAddTask
+
+### 6.5 Task List with Tabs & Filters
+
+- [ ] 6.5.1 Create `TaskTabs.tsx` — uses FcTabs, FcTab
+- [ ] 6.5.2 Create `TaskFilters.tsx` — uses FcSelect
+- [ ] 6.5.3 Create `TaskRow.tsx` — uses FcChip, FcTypography, FcIconButton
+- [ ] 6.5.4 Create `TaskList.tsx` — composes TaskTabs + TaskFilters + TaskRow list
+- [ ] 6.5.5 Add unit tests for TaskRow, TaskTabs
+
+### 6.6 Right Sidebar Panels
+
+- [ ] 6.6.1 Create `TaskOverviewChart.tsx` — donut chart (In Progress/Completed/Pending)
+- [ ] 6.6.2 Create `UpcomingDeadlines.tsx` — list of upcoming deadline items
+- [ ] 6.6.3 Add unit tests for UpcomingDeadlines
+
+### 6.7 Activity Feed
+
+- [ ] 6.7.1 Create `ActivityFeed.tsx` — timeline with colored dots and timestamps
+- [ ] 6.7.2 Create `ActivityItem.tsx` — single activity entry
+- [ ] 6.7.3 Add unit tests for ActivityItem
+
+### 6.8 Dashboard Business Logic (Container Layer)
+
+- [ ] 6.8.1 Create `src/features/dashboard/hooks/useDashboard.ts` — aggregate dashboard data
+- [ ] 6.8.2 Create `src/features/dashboard/hooks/useTaskActions.ts` — add, complete, delete
+- [ ] 6.8.3 Create `src/features/dashboard/hooks/useTaskFilters.ts` — filter and sort logic
+- [ ] 6.8.4 Wire container layer to presentational components
+
+## 7. Fc Layer Expansion (Driven by Feature Needs)
+
+> New Fc components are added when a new MUI component is needed by a feature. No direct MUI imports allowed outside `src/components/ui/`.
+
+- [ ] 7.1 Identify composite UI patterns from dashboard build (e.g., StatusChip, ActionIconGroup)
+- [ ] 7.2 Create higher-level Fc composites for repeated patterns
+  - [ ] 7.2.1 `FcStatusChip` — priority/status chip with color mapping (if pattern repeats)
+  - [ ] 7.2.2 `FcActionGroup` — row of icon buttons for edit/delete/view (if pattern repeats)
+  - [ ] 7.2.3 `FcSummaryCard` — stats card with count + label + highlight (if pattern repeats)
+- [ ] 7.3 Add Storybook stories for all new Fc composites
+- [ ] 7.4 Validate no direct MUI imports exist outside `src/components/ui/`
+
+## 8. Storybook Documentation
+
+- [ ] 8.1 Create dashboard component stories in `src/stories/Dashboard/`
+- [ ] 8.2 Create StatsCard story with variants (Playground, Sizes, Colors)
+- [ ] 8.3 Create TaskRow story with states (pending, in-progress, completed)
+- [ ] 8.4 Create QuickAddTask story with form interaction
+- [ ] 8.5 Create ActivityFeed story with mock data
+- [ ] 8.6 Create Sidebar story with navigation states
+- [ ] 8.7 Add promoted shared component stories to `src/stories/UI/`
+
+## 9. Testing & Validation
+
+- [ ] 9.1 Unit tests for all presentational components (80%+ coverage target)
+- [ ] 9.2 Hook tests for useDashboard, useTaskActions, useTaskFilters
+- [ ] 9.3 Validate full build: `pnpm type-check && pnpm lint && pnpm build`
+- [ ] 9.4 Visual validation against mockup
+- [ ] 9.5 Accessibility audit (ARIA, keyboard navigation, screen reader)
+- [ ] 9.6 Update README and ARCHITECTURE.md with dashboard feature docs

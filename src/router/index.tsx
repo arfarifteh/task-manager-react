@@ -6,10 +6,13 @@ import {
 } from '../components/ui/ErrorBoundary';
 import { RouteLoadingFallback } from '../components/ui/LoadingStates';
 
-// Lazy loaded routes with loading states
+// Lazy loaded routes
 const Root = lazy(() => import('../routes/root'));
 const Index = lazy(() => import('../routes/index'));
 const Tasks = lazy(() => import('../routes/tasks'));
+const Analytics = lazy(() => import('../routes/analytics'));
+const Calendar = lazy(() => import('../routes/calendar'));
+const Settings = lazy(() => import('../routes/settings'));
 const Components = lazy(() => import('../routes/components'));
 
 const router = createBrowserRouter([
@@ -22,46 +25,61 @@ const router = createBrowserRouter([
         </Suspense>
       </ErrorBoundary>
     ),
-    errorElement: <RouteErrorBoundary reset={() => window.location.reload()} />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       {
         index: true,
         element: (
-          <ErrorBoundary>
-            <Suspense fallback={<RouteLoadingFallback />}>
-              <Index />
-            </Suspense>
-          </ErrorBoundary>
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Index />
+          </Suspense>
         ),
-        errorElement: (
-          <RouteErrorBoundary reset={() => window.location.reload()} />
-        ),
+        errorElement: <RouteErrorBoundary />,
       },
       {
         path: 'tasks',
         element: (
-          <ErrorBoundary>
-            <Suspense fallback={<RouteLoadingFallback />}>
-              <Tasks />
-            </Suspense>
-          </ErrorBoundary>
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Tasks />
+          </Suspense>
         ),
-        errorElement: (
-          <RouteErrorBoundary reset={() => window.location.reload()} />
+        errorElement: <RouteErrorBoundary />,
+      },
+      {
+        path: 'analytics',
+        element: (
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Analytics />
+          </Suspense>
         ),
+        errorElement: <RouteErrorBoundary />,
+      },
+      {
+        path: 'calendar',
+        element: (
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Calendar />
+          </Suspense>
+        ),
+        errorElement: <RouteErrorBoundary />,
+      },
+      {
+        path: 'settings',
+        element: (
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Settings />
+          </Suspense>
+        ),
+        errorElement: <RouteErrorBoundary />,
       },
       {
         path: 'components',
         element: (
-          <ErrorBoundary>
-            <Suspense fallback={<RouteLoadingFallback />}>
-              <Components />
-            </Suspense>
-          </ErrorBoundary>
+          <Suspense fallback={<RouteLoadingFallback />}>
+            <Components />
+          </Suspense>
         ),
-        errorElement: (
-          <RouteErrorBoundary reset={() => window.location.reload()} />
-        ),
+        errorElement: <RouteErrorBoundary />,
       },
     ],
   },

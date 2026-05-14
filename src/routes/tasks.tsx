@@ -1,34 +1,35 @@
-// import { Link } from 'react-router-dom'; // Future use for task detail links
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
-// Future data loading capability
-// export async function loader({ request }) {
-//   const response = await fetch('/api/tasks');
-//   return { tasks: await response.json() };
-// }
-
-export default function TaskManagerPage() {
-  // const { tasks } = useLoaderData();
-
+export default function TasksPage() {
   return (
-    <div>
-      <h1>Task Manager</h1>
-      <p>Manage your tasks efficiently with our intuitive interface.</p>
-      <div
-        style={{
-          padding: '20px',
-          backgroundColor: '#f5f5f5',
-          borderRadius: '8px',
-        }}>
-        <h2>Tasks</h2>
-        <p>No tasks yet. Task management features coming soon!</p>
-        {/* Future: 
-        {tasks.map(task => (
-          <Link key={task.id} to={`/tasks/${task.id}`}>
-            {task.title}
-          </Link>
-        ))}
-        */}
-      </div>
-    </div>
+    <Box>
+      <Typography variant="h2" sx={{ mb: 2 }}>
+        My Tasks
+      </Typography>
+      <Card>
+        <CardContent
+          sx={{
+            textAlign: 'center',
+            py: 6,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 2,
+          }}>
+          <AssignmentIcon sx={{ fontSize: 48, color: 'text.secondary' }} />
+          <Typography variant="h3" color="text.secondary">
+            Task List
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Full task management with filters, tabs, and actions coming in
+            Section 6.
+          </Typography>
+        </CardContent>
+      </Card>
+    </Box>
   );
 }

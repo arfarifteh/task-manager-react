@@ -2,13 +2,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import WidgetsIcon from '@mui/icons-material/Widgets';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
-export default function ComponentLibraryPage() {
+export default function AnalyticsPage() {
   return (
     <Box>
       <Typography variant="h2" sx={{ mb: 2 }}>
-        Component Library
+        Analytics
       </Typography>
       <Card>
         <CardContent
@@ -20,13 +20,12 @@ export default function ComponentLibraryPage() {
             alignItems: 'center',
             gap: 2,
           }}>
-          <WidgetsIcon sx={{ fontSize: 48, color: 'text.secondary' }} />
+          <BarChartIcon sx={{ fontSize: 48, color: 'text.secondary' }} />
           <Typography variant="h3" color="text.secondary">
-            Shared UI Components
+            Analytics Dashboard
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Components will be promoted here after 3+ uses across features (Rule
-            5).
+            Task analytics and insights coming soon.
           </Typography>
         </CardContent>
       </Card>
