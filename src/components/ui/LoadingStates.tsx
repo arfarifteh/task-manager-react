@@ -1,54 +1,54 @@
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
-import Skeleton from '@mui/material/Skeleton';
-import Typography from '@mui/material/Typography';
+import { FcBox } from './FcBox';
+import { FcCircularProgress } from './FcCircularProgress';
+import { FcSkeleton } from './FcSkeleton';
+import { FcTypography } from './FcTypography';
 
-// Page skeleton with MUI Skeleton components
+// Page skeleton with Fc Skeleton components
 export function PageSkeleton() {
   return (
-    <Box sx={{ p: 2.5 }}>
-      <Skeleton variant="text" width={200} height={40} sx={{ mb: 2.5 }} />
-      <Skeleton
-        variant="rectangular"
+    <FcBox sx={{ p: 2.5 }}>
+      <FcSkeleton text width={200} height={40} sx={{ mb: 2.5 }} />
+      <FcSkeleton
+        rectangular
         width="100%"
         height={100}
         sx={{ mb: 2.5, borderRadius: 1 }}
       />
-      <Box sx={{ display: 'flex', gap: 1.5 }}>
-        <Skeleton
-          variant="rectangular"
+      <FcBox sx={{ display: 'flex', gap: 1.5 }}>
+        <FcSkeleton
+          rectangular
           width={100}
           height={40}
           sx={{ borderRadius: 1 }}
         />
-        <Skeleton
-          variant="rectangular"
+        <FcSkeleton
+          rectangular
           width={100}
           height={40}
           sx={{ borderRadius: 1 }}
         />
-      </Box>
-    </Box>
+      </FcBox>
+    </FcBox>
   );
 }
 
 // Navigation/sidebar skeleton
 export function NavigationSkeleton() {
   return (
-    <Box component="nav" sx={{ p: 2.5, mb: 2.5 }}>
-      <Box sx={{ display: 'flex', gap: 2.5, alignItems: 'center' }}>
-        <Skeleton variant="text" width={150} height={28} />
-        <Skeleton variant="text" width={80} height={28} />
-        <Skeleton variant="text" width={120} height={28} />
-      </Box>
-    </Box>
+    <FcBox component="nav" sx={{ p: 2.5, mb: 2.5 }}>
+      <FcBox sx={{ display: 'flex', gap: 2.5, alignItems: 'center' }}>
+        <FcSkeleton text width={150} height={28} />
+        <FcSkeleton text width={80} height={28} />
+        <FcSkeleton text width={120} height={28} />
+      </FcBox>
+    </FcBox>
   );
 }
 
 // Route loading fallback — shown during lazy-load Suspense
 export function RouteLoadingFallback() {
   return (
-    <Box
+    <FcBox
       sx={{
         p: 5,
         textAlign: 'center',
@@ -59,10 +59,10 @@ export function RouteLoadingFallback() {
         alignItems: 'center',
         gap: 2.5,
       }}>
-      <CircularProgress size={36} />
-      <Typography variant="body2" color="text.secondary">
+      <FcCircularProgress size={36} />
+      <FcTypography body2 secondary>
         Loading page...
-      </Typography>
-    </Box>
+      </FcTypography>
+    </FcBox>
   );
 }

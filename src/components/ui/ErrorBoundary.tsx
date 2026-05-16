@@ -1,11 +1,10 @@
 import React from 'react';
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Collapse from '@mui/material/Collapse';
+import { FcAlert } from './FcAlert';
+import { FcBox } from './FcBox';
+import { FcButton } from './FcButton';
+import { FcTypography } from './FcTypography';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -41,6 +40,7 @@ export class ErrorBoundary extends React.Component<
   render() {
     if (this.state.hasError) {
       const FallbackComponent = this.props.fallback || DefaultErrorFallback;
+
       return <FallbackComponent error={this.state.error!} reset={this.reset} />;
     }
 
@@ -58,28 +58,25 @@ function DefaultErrorFallback({
   const [showDetails, setShowDetails] = React.useState(false);
 
   return (
-    <Box role="alert" sx={{ p: 2.5, m: 2.5 }}>
-      <Alert
-        severity="error"
+    <FcBox role="alert" sx={{ p: 2.5, m: 2.5 }}>
+      <FcAlert
+        error
+        title="Something went wrong"
         action={
-          <Button color="inherit" size="small" onClick={reset}>
+          <FcButton text small sx={{ color: 'inherit' }} onClick={reset}>
             Try again
-          </Button>
+          </FcButton>
         }>
-        <AlertTitle>Something went wrong</AlertTitle>
         We encountered an unexpected error. Please try again.
-      </Alert>
-      <Box sx={{ mt: 1.5 }}>
-        <Button
-          size="small"
-          variant="text"
-          onClick={() => setShowDetails(prev => !prev)}>
+      </FcAlert>
+      <FcBox sx={{ mt: 1.5 }}>
+        <FcButton text small onClick={() => setShowDetails(prev => !prev)}>
           {showDetails ? 'Hide' : 'Show'} error details
-        </Button>
+        </FcButton>
         <Collapse in={showDetails}>
-          <Typography
+          <FcTypography
+            body2
             component="pre"
-            variant="body2"
             sx={{
               mt: 1,
               p: 1.5,
@@ -89,10 +86,10 @@ function DefaultErrorFallback({
               overflow: 'auto',
             }}>
             {error.message}
-          </Typography>
+          </FcTypography>
         </Collapse>
-      </Box>
-    </Box>
+      </FcBox>
+    </FcBox>
   );
 }
 
@@ -101,6 +98,7 @@ export function RouteErrorBoundary() {
   const error = useRouteError();
 
   let title = 'Page Load Error';
+
   let message =
     'This page failed to load properly. Please check your connection and try again.';
 
@@ -115,7 +113,7 @@ export function RouteErrorBoundary() {
   }
 
   return (
-    <Box
+    <FcBox
       role="alert"
       sx={{
         p: 5,
@@ -127,16 +125,12 @@ export function RouteErrorBoundary() {
         alignItems: 'center',
         gap: 2,
       }}>
-      <Alert severity="error" sx={{ maxWidth: 480 }}>
-        <AlertTitle>{title}</AlertTitle>
+      <FcAlert error title={title} sx={{ maxWidth: 480 }}>
         {message}
-      </Alert>
-      <Button
-        variant="contained"
-        onClick={() => window.location.reload()}
-        sx={{ mt: 1 }}>
+      </FcAlert>
+      <FcButton primary onClick={() => window.location.reload()} sx={{ mt: 1 }}>
         Reload Page
-      </Button>
-    </Box>
+      </FcButton>
+    </FcBox>
   );
 }

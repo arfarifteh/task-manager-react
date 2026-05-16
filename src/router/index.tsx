@@ -8,11 +8,17 @@ import { RouteLoadingFallback } from '../components/ui/LoadingStates';
 
 // Lazy loaded routes
 const Root = lazy(() => import('../routes/root'));
+
 const Index = lazy(() => import('../routes/index'));
+
 const Tasks = lazy(() => import('../routes/tasks'));
+
 const Analytics = lazy(() => import('../routes/analytics'));
+
 const Calendar = lazy(() => import('../routes/calendar'));
+
 const Settings = lazy(() => import('../routes/settings'));
+
 const Components = lazy(() => import('../routes/components'));
 
 const router = createBrowserRouter([

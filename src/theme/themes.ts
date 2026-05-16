@@ -1,16 +1,33 @@
 import { createTheme } from '@mui/material/styles';
 
-// Sidebar color tokens (matching mockup dark navy sidebar)
-const sidebarColors = {
-  bg: '#1e2a3a',
-  bgHover: '#2a3a4e',
-  bgActive: '#3a7bd5',
-  text: '#8899aa',
-  textActive: '#ffffff',
-  logo: '#3a7bd5',
-};
+// Sidebar color tokens per theme mode
+const sidebarColorsMap = {
+  light: {
+    bg: '#1e2a3a',
+    bgHover: '#2a3a4e',
+    bgActive: '#3a7bd5',
+    text: '#8899aa',
+    textActive: '#ffffff',
+    logo: '#3a7bd5',
+  },
+  dark: {
+    bg: '#111827',
+    bgHover: '#1f2937',
+    bgActive: '#3a7bd5',
+    text: '#9ca3af',
+    textActive: '#f3f4f6',
+    logo: '#60a5fa',
+  },
+} as const;
 
-export { sidebarColors };
+export type SidebarColors = (typeof sidebarColorsMap)[ThemeMode];
+
+export function getSidebarColors(mode: ThemeMode): SidebarColors {
+  return sidebarColorsMap[mode];
+}
+
+// Keep backward-compat default export (light)
+export const sidebarColors = sidebarColorsMap.light;
 
 export const lightTheme = createTheme({
   palette: {

@@ -83,11 +83,11 @@
   - [x] 3.10.1.4 Document Rule 4: Consistency and patterns (mandatory)
   - [x] 3.10.1.5 Document Rule 5: Shared layer governance (mandatory)
   - [x] 3.10.1.6 Document Rule 6: Code quality gates (mandatory)
-- [ ] 3.10.2 Set up ESLint rules to enforce architecture patterns
-  - [ ] 3.10.2.1 Add import order rules (React → libs → shared → feature → relative)
-  - [ ] 3.10.2.2 Add folder structure enforcement rules
-  - [ ] 3.10.2.3 Add component size warnings (>150 lines)
-  - [ ] 3.10.2.4 Add forbidden pattern rules (no cross-feature imports)
+- [x] 3.10.2 Set up ESLint rules to enforce architecture patterns
+  - [x] 3.10.2.1 Add import order rules (React → libs → shared → feature → relative)
+  - [x] 3.10.2.2 Add folder structure enforcement rules
+  - [x] 3.10.2.3 Add component size warnings (>150 lines)
+  - [x] 3.10.2.4 Add forbidden pattern rules (no cross-feature imports) — implemented Fc layer no-restricted-imports
 - [ ] 3.10.3 Create feature structure templates
   - [ ] 3.10.3.1 Create feature generator script/template
   - [ ] 3.10.3.2 Add component boilerplate with proper structure
@@ -133,69 +133,69 @@
 
 #### 4.4.1 Layout Primitives
 
-- [ ] `FcBox` — wraps MUI Box (pass-through `sx`, `component`)
-- [ ] `FcStack` — wraps MUI Stack (boolean: `row`, `column`, spacing shortcuts)
-- [ ] `FcGrid` — wraps MUI Grid (responsive layout)
+- [x] `FcBox` — wraps MUI Box (pass-through `sx`, `component`)
+- [x] `FcStack` — wraps MUI Stack (boolean: `row`, `column`, spacing shortcuts)
+- [x] `FcGrid` — wraps MUI Grid (responsive layout)
 
 #### 4.4.2 Typography
 
-- [ ] `FcTypography` — wraps MUI Typography (boolean: `h1`, `h2`, `h3`, `body`, `caption`, `secondary`)
+- [x] `FcTypography` — wraps MUI Typography (boolean: `h1`, `h2`, `h3`, `body`, `caption`, `secondary`)
 
 #### 4.4.3 Interactive Components
 
-- [ ] `FcButton` — wraps MUI Button (boolean: `primary`, `secondary`, `danger`, `outlined`, `small`, `large`)
-- [ ] `FcIconButton` — wraps MUI IconButton (boolean: `small`, `primary`)
-- [ ] `FcTextField` — wraps MUI TextField (boolean: `fullWidth`, `error`)
-- [ ] `FcSelect` — wraps MUI Select + MenuItem
+- [x] `FcButton` — wraps MUI Button (boolean: `primary`, `secondary`, `danger`, `outlined`, `small`, `large`)
+- [x] `FcIconButton` — wraps MUI IconButton (boolean: `small`, `primary`)
+- [x] `FcTextField` — wraps MUI TextField (boolean: `fullWidth`, `error`)
+- [x] `FcSelect` — wraps MUI Select + MenuItem
 
 #### 4.4.4 Data Display
 
-- [ ] `FcCard` — wraps MUI Card + CardContent (boolean: `elevated`, `outlined`, `noPadding`)
-- [ ] `FcChip` — wraps MUI Chip (boolean: `high`, `medium`, `low`, `success`, `warning`, `error`)
-- [ ] `FcBadge` — wraps MUI Badge (boolean: `error`, `primary`)
-- [ ] `FcAvatar` — wraps MUI Avatar (boolean: `small`, `medium`, `large`)
-- [ ] `FcTabs` / `FcTab` — wraps MUI Tabs + Tab
+- [x] `FcCard` — wraps MUI Card + CardContent (boolean: `elevated`, `outlined`, `noPadding`)
+- [x] `FcChip` — wraps MUI Chip (boolean: `high`, `medium`, `low`, `success`, `warning`, `error`)
+- [x] `FcBadge` — wraps MUI Badge (boolean: `error`, `primary`)
+- [x] `FcAvatar` — wraps MUI Avatar (boolean: `small`, `medium`, `large`)
+- [x] `FcTabs` / `FcTab` — wraps MUI Tabs + Tab
 
 #### 4.4.5 Feedback
 
-- [ ] `FcAlert` — wraps MUI Alert + AlertTitle (boolean: `error`, `warning`, `success`, `info`)
-- [ ] `FcSkeleton` — wraps MUI Skeleton (boolean: `text`, `rectangular`, `circular`)
-- [ ] `FcCircularProgress` — wraps MUI CircularProgress
+- [x] `FcAlert` — wraps MUI Alert + AlertTitle (boolean: `error`, `warning`, `success`, `info`)
+- [x] `FcSkeleton` — wraps MUI Skeleton (boolean: `text`, `rectangular`, `circular`)
+- [x] `FcCircularProgress` — wraps MUI CircularProgress
 
 #### 4.4.6 Navigation
 
-- [ ] `FcDrawer` — wraps MUI Drawer (boolean: `permanent`, `temporary`)
-- [ ] `FcList` / `FcListItemButton` — wraps MUI List, ListItemButton, ListItemIcon, ListItemText
+- [x] `FcDrawer` — wraps MUI Drawer (boolean: `permanent`, `temporary`)
+- [x] `FcList` / `FcListItemButton` — wraps MUI List, ListItemButton, ListItemIcon, ListItemText
 
 #### 4.4.7 Infrastructure
 
-- [ ] Create `src/components/ui/index.ts` barrel export for all Fc components
-- [ ] Create `src/components/ui/types.ts` shared Fc prop utility types
-- [ ] Add ESLint rule or import restriction: disallow `@mui/material` imports outside `src/components/ui/`
+- [x] Create `src/components/ui/index.ts` barrel export for all Fc components
+- [x] Create `src/components/ui/types.ts` shared Fc prop utility types
+- [x] Add ESLint rule or import restriction: disallow `@mui/material` imports outside `src/components/ui/`
 
 #### 4.4.8 Refactor Existing Code to Use Fc Layer
 
-- [ ] Refactor `root.tsx` — replace all direct MUI imports with Fc components
-- [ ] Refactor `ErrorBoundary.tsx` — use FcAlert, FcButton, FcBox, FcTypography
-- [ ] Refactor `LoadingStates.tsx` — use FcBox, FcSkeleton, FcCircularProgress, FcTypography
-- [ ] Refactor all route pages (analytics, calendar, settings, tasks, components, index) — use Fc components
+- [x] Refactor `root.tsx` — replace all direct MUI imports with Fc components
+- [x] Refactor `ErrorBoundary.tsx` — use FcAlert, FcButton, FcBox, FcTypography
+- [x] Refactor `LoadingStates.tsx` — use FcBox, FcSkeleton, FcCircularProgress, FcTypography
+- [x] Refactor all route pages (analytics, calendar, settings, tasks, components, index) — use Fc components
 
 ## 5. Domain Model & Data Layer (Foundation)
 
 ### 5.1 Define Core TypeScript Types
 
-- [ ] 5.1.1 Create `src/types/task.ts` — Task, TaskStatus, TaskPriority, TaskFilter
-- [ ] 5.1.2 Create `src/types/user.ts` — User, UserProfile
-- [ ] 5.1.3 Create `src/types/activity.ts` — ActivityItem, ActivityType
-- [ ] 5.1.4 Create `src/types/dashboard.ts` — DashboardStats, TaskOverview
-- [ ] 5.1.5 Create `src/types/index.ts` barrel export
+- [x] 5.1.1 Create `src/types/task.ts` — Task, TaskStatus, TaskPriority, TaskFilter
+- [x] 5.1.2 Create `src/types/user.ts` — User, UserProfile
+- [x] 5.1.3 Create `src/types/activity.ts` — ActivityItem, ActivityType
+- [x] 5.1.4 Create `src/types/dashboard.ts` — DashboardStats, TaskOverview
+- [x] 5.1.5 Create `src/types/index.ts` barrel export
 
 ### 5.2 Create Mock Data Layer
 
-- [ ] 5.2.1 Create `src/services/mockData.ts` — sample tasks matching mockup
-- [ ] 5.2.2 Create `src/services/taskService.ts` — CRUD operations on mock data
-- [ ] 5.2.3 Create `src/services/dashboardService.ts` — stats, overview, deadlines
-- [ ] 5.2.4 Create `src/services/activityService.ts` — activity feed data
+- [x] 5.2.1 Create `src/services/mockData.ts` — sample tasks matching mockup
+- [x] 5.2.2 Create `src/services/taskService.ts` — CRUD operations on mock data
+- [x] 5.2.3 Create `src/services/dashboardService.ts` — stats, overview, deadlines
+- [x] 5.2.4 Create `src/services/activityService.ts` — activity feed data
 
 ## 6. Dashboard Feature (Mockup-Driven)
 
@@ -210,10 +210,10 @@
 
 ### 6.2 App Shell (Sidebar + Header)
 
-- [ ] 6.2.1 Create `Sidebar.tsx` — uses FcDrawer, FcList, FcListItemButton, FcAvatar
-- [ ] 6.2.2 Create `AppHeader.tsx` — uses FcTypography, FcBadge, FcIconButton, FcButton
-- [ ] 6.2.3 Update `root.tsx` to use Sidebar + AppHeader layout (replace current nav)
-- [ ] 6.2.4 Add active state styling using FcListItemButton + useLocation
+- [x] 6.2.1 Create `Sidebar.tsx` — uses FcDrawer, FcList, FcListItemButton, FcAvatar (implemented in root.tsx)
+- [x] 6.2.2 Create `AppHeader.tsx` — uses FcTypography, FcBadge, FcIconButton, FcButton (implemented in root.tsx)
+- [x] 6.2.3 Update `root.tsx` to use Sidebar + AppHeader layout (replace current nav)
+- [x] 6.2.4 Add active state styling using FcListItemButton + useLocation
 
 ### 6.3 Stats Cards Row
 

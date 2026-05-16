@@ -1,23 +1,24 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
-import Badge from '@mui/material/Badge';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import SettingsIcon from '@mui/icons-material/Settings';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { ThemeProviderWrapper, sidebarColors } from '../theme';
+import {
+  FcBox,
+  FcDrawer,
+  FcList,
+  FcListItemButton,
+  FcTypography,
+  FcAvatar,
+  FcBadge,
+  FcIconButton,
+  FcButton,
+  FcToggle,
+  DashboardIcon,
+  AssignmentIcon,
+  BarChartIcon,
+  CalendarMonthIcon,
+  SettingsIcon,
+  NotificationsIcon,
+  CheckCircleIcon,
+} from '../components/ui';
+import { ThemeProviderWrapper, useThemeMode, getSidebarColors } from '../theme';
 
 const SIDEBAR_WIDTH = 220;
 
@@ -31,34 +32,38 @@ const navItems = [
 
 export default function Root() {
   return (
-    <ThemeProviderWrapper theme="light">
-      <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <ThemeProviderWrapper>
+      <FcBox sx={{ display: 'flex', minHeight: '100vh' }}>
         <Sidebar />
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <FcBox sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <AppHeader />
-          <Box
+          <FcBox
             component="main"
             sx={{
               flex: 1,
-              p: 3,
               bgcolor: 'background.default',
               overflow: 'auto',
             }}>
             <Outlet />
-          </Box>
-        </Box>
-      </Box>
+          </FcBox>
+        </FcBox>
+      </FcBox>
     </ThemeProviderWrapper>
   );
 }
 
 function Sidebar() {
   const location = useLocation();
+
   const navigate = useNavigate();
 
+  const { mode } = useThemeMode();
+
+  const sidebarColors = getSidebarColors(mode);
+
   return (
-    <Drawer
-      variant="permanent"
+    <FcDrawer
+      permanent
       aria-label="Main navigation"
       sx={{
         width: SIDEBAR_WIDTH,
@@ -73,30 +78,34 @@ function Sidebar() {
         },
       }}>
       {/* Logo */}
-      <Box sx={{ p: 2.5, display: 'flex', alignItems: 'center', gap: 1.5 }}>
+      <FcBox sx={{ p: 2.5, display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <CheckCircleIcon sx={{ color: sidebarColors.logo, fontSize: 28 }} />
-        <Typography
-          variant="h6"
+        <FcTypography
+          h6
           sx={{ color: sidebarColors.textActive, fontWeight: 700 }}>
           TaskMaster
-        </Typography>
-      </Box>
+        </FcTypography>
+      </FcBox>
 
       {/* Navigation */}
-      <List component="nav" sx={{ px: 1.5, flex: 1 }}>
+      <FcList component="nav" sx={{ px: 1.5, flex: 1 }}>
         {navItems.map(item => {
           const isActive =
             item.path === '/'
               ? location.pathname === '/'
               : location.pathname.startsWith(item.path);
+
           const Icon = item.icon;
 
           return (
-            <ListItemButton
+            <FcListItemButton
               key={item.path}
               selected={isActive}
               onClick={() => navigate(item.path)}
               aria-label={`Navigate to ${item.label}`}
+              icon={<Icon fontSize="small" />}
+              iconSx={{ color: 'inherit', minWidth: 36 }}
+              primary={item.label}
               sx={{
                 borderRadius: 1.5,
                 mb: 0.5,
@@ -113,42 +122,29 @@ function Sidebar() {
                     bgcolor: sidebarColors.bgActive,
                   },
                 },
-              }}>
-              <ListItemIcon
-                sx={{
-                  color: 'inherit',
-                  minWidth: 36,
-                }}>
-                <Icon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText
-                primary={item.label}
-                slotProps={{ primary: { sx: { fontSize: '0.875rem' } } }}
-              />
-            </ListItemButton>
+              }}
+            />
           );
         })}
-      </List>
+      </FcList>
 
       {/* User avatar at bottom */}
-      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <Avatar
-          sx={{ width: 36, height: 36, bgcolor: 'primary.main' }}
-          alt="Alireza">
+      <FcBox sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1.5 }}>
+        <FcAvatar sx={{ bgcolor: 'primary.main' }} alt="Alireza">
           A
-        </Avatar>
-        <Box sx={{ overflow: 'hidden' }}>
-          <Typography
-            variant="body2"
+        </FcAvatar>
+        <FcBox sx={{ overflow: 'hidden' }}>
+          <FcTypography
+            body2
             sx={{
               color: sidebarColors.textActive,
               fontWeight: 600,
               lineHeight: 1.2,
             }}>
             Alireza
-          </Typography>
-          <Typography
-            variant="caption"
+          </FcTypography>
+          <FcTypography
+            caption
             sx={{
               color: sidebarColors.text,
               display: 'block',
@@ -156,16 +152,16 @@ function Sidebar() {
               textOverflow: 'ellipsis',
             }}>
             alireza@example.com
-          </Typography>
-        </Box>
-      </Box>
-    </Drawer>
+          </FcTypography>
+        </FcBox>
+      </FcBox>
+    </FcDrawer>
   );
 }
 
 function AppHeader() {
   return (
-    <Box
+    <FcBox
       component="header"
       sx={{
         px: 3,
@@ -177,25 +173,26 @@ function AppHeader() {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-      <Box>
-        <Typography variant="h1" sx={{ color: 'text.primary' }}>
+      <FcBox>
+        <FcTypography h1 sx={{ color: 'text.primary' }}>
           Welcome, Alireza!
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        </FcTypography>
+        <FcTypography body2 secondary>
           Manage your tasks efficiently.
-        </Typography>
-      </Box>
+        </FcTypography>
+      </FcBox>
 
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <IconButton aria-label="Notifications">
-          <Badge badgeContent={2} color="error">
+      <FcBox sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        <FcToggle />
+        <FcIconButton aria-label="Notifications">
+          <FcBadge error badgeContent={2}>
             <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <Button variant="outlined" size="small">
+          </FcBadge>
+        </FcIconButton>
+        <FcButton outlined small>
           Logout
-        </Button>
-      </Box>
-    </Box>
+        </FcButton>
+      </FcBox>
+    </FcBox>
   );
 }

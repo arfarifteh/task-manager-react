@@ -338,7 +338,8 @@ src/components/ui/         # Fc (Fusion Core) UI component library
 ├── FcCircularProgress.tsx
 ├── FcDrawer.tsx          # Navigation
 ├── FcList.tsx
-├── index.ts             # Barrel export
+├── icons.ts             # Re-exported MUI icons (single allowed source)
+├── index.ts             # Barrel export (components + icons)
 └── types.ts             # Shared Fc prop types
 
 shared/                    # Cross-cutting concerns
@@ -479,6 +480,6 @@ src/
 ---
 
 **Document Owner**: Alireza Farifteh  
-**Last Updated**: April 15, 2026  
-**Version**: 1.0  
-**Enforcement**: Pre-commit hooks + PR reviews
+**Last Updated**: May 14, 2026  
+**Version**: 1.1  
+**Enforcement**: Pre-commit hooks + PR reviews + ESLint `no-restricted-imports`

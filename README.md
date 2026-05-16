@@ -8,7 +8,7 @@ This project demonstrates professional React development practices and serves as
 
 - **Feature-based Architecture** - Scalable project organization patterns
 - **Modern React Patterns** - Compound components, custom hooks, render props
-- **Material UI Integration** - Component library customization and theming
+- **Material UI + Fc Layer** - Component library customization, theming, and abstraction
 - **Performance Optimization** - CSR-specific techniques and best practices
 - **Testing Strategies** - Component testing with modern tools
 - **TypeScript Mastery** - Advanced type patterns and safety
@@ -24,12 +24,13 @@ This project demonstrates professional React development practices and serves as
 
 ### UI & Styling
 
-- **Material UI (MUI) v6** - Component library with advanced theming
+- **Material UI (MUI) v9** - Component library with advanced theming
+- **Fc (Fusion Core) Layer** - Boolean-variant wrapper components over MUI (zero direct MUI imports in app code)
 - **Emotion** - CSS-in-JS styling (MUI dependency)
 
 ### Routing & Navigation
 
-- **React Router v6** - Declarative routing with TypeScript support
+- **React Router v7** - Declarative routing with TypeScript support
 
 ### Development Tools
 
@@ -61,29 +62,42 @@ This project demonstrates professional React development practices and serves as
 
 ```
 src/
+├── components/ui/           # Fc (Fusion Core) UI layer — wraps MUI
+│   ├── Fc*.tsx             # Boolean-variant wrappers (FcButton, FcCard, etc.)
+│   ├── icons.ts            # Re-exported MUI icons (single source)
+│   ├── types.ts            # Shared Fc prop utility types
+│   ├── ErrorBoundary.tsx   # Error boundary components
+│   ├── LoadingStates.tsx   # Skeleton & spinner components
+│   └── index.ts            # Barrel export (all Fc components + icons)
 ├── features/                # Domain features (MANDATORY structure)
-│   ├── tasks/              # Task management domain
-│   │   ├── components/     # Task-specific UI components
-│   │   ├── hooks/          # Task business logic hooks
-│   │   ├── services/       # Task API layer
-│   │   └── types.ts        # Task TypeScript definitions
-│   └── auth/               # Authentication domain (future)
-├── components/ui/           # Shared design system (REUSABLE ONLY)
-│   ├── Button/             # Button component (3+ use cases required)
-│   ├── TextField/          # TextField component
-│   └── Card/               # Card component
-├── shared/                  # Cross-cutting concerns
-│   ├── hooks/              # Generic hooks (useDebounce, etc.)
-│   ├── services/           # API client, error handling
-│   └── utils/              # Date, validation, formatting
+│   └── dashboard/          # Dashboard feature (in progress)
+├── types/                   # Domain model types
+│   ├── task.ts             # Task, TaskStatus, TaskPriority, TaskFilter
+│   ├── user.ts             # User, UserProfile
+│   ├── activity.ts         # ActivityItem, ActivityType
+│   ├── dashboard.ts        # DashboardStats, TaskOverview
+│   └── index.ts            # Barrel export
+├── services/                # Data layer (mock-first)
+│   ├── mockData.ts         # Sample data matching UX mockup
+│   ├── taskService.ts      # CRUD operations on tasks
+│   ├── dashboardService.ts # Stats, overview, deadlines
+│   └── activityService.ts  # Activity feed data
 ├── routes/                  # React Router co-located routes
-│   ├── root.tsx            # Layout with ThemeProvider
-│   ├── index.tsx           # Home page
-│   └── tasks.tsx           # Tasks page
+│   ├── root.tsx            # App shell (sidebar + header)
+│   ├── index.tsx           # Dashboard page
+│   ├── tasks.tsx           # Tasks page
+│   ├── analytics.tsx       # Analytics page
+│   ├── calendar.tsx        # Calendar page
+│   ├── settings.tsx        # Settings page
+│   └── components.tsx      # Component library showcase
+├── router/                  # Router configuration
+│   └── index.tsx           # Route definitions with lazy loading
 ├── stories/UI/              # Storybook documentation
 ├── theme/                   # Shared theme configuration
-├── assets/                  # Static assets
-└── App.tsx                  # Root application component
+│   ├── themes.ts           # Light/dark theme definitions
+│   ├── ThemeProvider.tsx   # Theme wrapper + sidebar tokens
+│   └── types.ts            # Theme type extensions
+└── assets/                  # Static assets
 ```
 
 ### Key Principles
@@ -263,29 +277,27 @@ UI Components/
 
 ### Import Patterns (Standardized)
 
-#### Component Library Imports
+#### Fc Component Imports (Mandatory)
 
 ```typescript
-// Multiple components - use barrel import
-import { Button, TextField, Card } from '../components/ui';
+// ✅ CORRECT: Import from Fc barrel
+import { FcButton, FcCard, FcTypography, DashboardIcon } from '../components/ui';
 
-// Single component - use individual import (better tree-shaking)
-import { Button } from '../components/ui/Button';
+// ✅ CORRECT: Boolean variant API
+<FcButton primary>Save</FcButton>
+<FcButton outlined small>Cancel</FcButton>
+<FcTypography h2>Title</FcTypography>
+<FcChip high>Urgent</FcChip>
 
-// Grouped imports for categories
-import { InputComponents, DisplayComponents } from '../components/ui';
-
-// TypeScript types
-import type { ButtonProps, TextFieldProps } from '../components/ui';
+// ❌ FORBIDDEN: Direct MUI imports in app code (enforced by ESLint)
+import Button from '@mui/material/Button';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 ```
 
-#### Path Aliases (Configured)
+#### Domain Type Imports
 
 ```typescript
-// Using path aliases for cleaner imports
-import { Button } from '@ui/Button';
-import { Button, TextField } from '@ui';
-import type { ButtonProps } from '@ui';
+import type { Task, TaskFilter, DashboardStats } from '../types';
 ```
 
 ### Feature Development
@@ -331,9 +343,10 @@ import { ThemeProviderWrapper } from './src/theme';
 
 ### Theme Structure
 
-- **src/theme/light.ts** - Light theme configuration
-- **src/theme/dark.ts** - Dark theme configuration
-- **src/theme/index.ts** - Theme provider wrapper and exports
+- **src/theme/themes.ts** - Light and dark theme definitions with sidebar color tokens
+- **src/theme/ThemeProvider.tsx** - Theme provider wrapper and sidebar colors export
+- **src/theme/types.ts** - Custom palette type extensions
+- **src/theme/index.ts** - Barrel export
 
 ### Theme Customization
 
