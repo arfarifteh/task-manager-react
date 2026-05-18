@@ -88,11 +88,11 @@
   - [x] 3.10.2.2 Add folder structure enforcement rules
   - [x] 3.10.2.3 Add component size warnings (>150 lines)
   - [x] 3.10.2.4 Add forbidden pattern rules (no cross-feature imports) — implemented Fc layer no-restricted-imports
-- [ ] 3.10.3 Create feature structure templates
-  - [ ] 3.10.3.1 Create feature generator script/template
-  - [ ] 3.10.3.2 Add component boilerplate with proper structure
-  - [ ] 3.10.3.3 Add hook boilerplate with documentation
-  - [ ] 3.10.3.4 Add service/api boilerplate
+- [x] 3.10.3 Create feature structure templates
+  - [x] 3.10.3.1 Create feature generator script/template
+  - [x] 3.10.3.2 Add component boilerplate with proper structure
+  - [x] 3.10.3.3 Add hook boilerplate with documentation
+  - [x] 3.10.3.4 Add service/api boilerplate
 - [x] 3.10.4 Set up pre-commit enforcement
   - [x] 3.10.4.1 Verify architecture rules in pre-commit hook
   - [x] 3.10.4.2 Add architecture checklist to PR template
@@ -196,8 +196,3 @@
 - [x] 5.2.2 Create `src/services/taskService.ts` — CRUD operations on mock data
 - [x] 5.2.3 Create `src/services/dashboardService.ts` — stats, overview, deadlines
 - [x] 5.2.4 Create `src/services/activityService.ts` — activity feed data
-
----
-
-> **Sections 6–9 (Dashboard Feature, Fc Layer Expansion, Storybook Documentation, Testing & Validation) have been extracted to the `build-dashboard` change.**
-> See: `openspec/changes/build-dashboard/`

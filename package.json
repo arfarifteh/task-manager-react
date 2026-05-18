@@ -18,7 +18,11 @@
     "test:watch": "vitest --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "generate:feature": "npx tsx scripts/generate-feature.ts",
+    "generate:component": "npx tsx scripts/generate-component.ts",
+    "generate:hook": "npx tsx scripts/generate-hook.ts",
+    "generate:service": "npx tsx scripts/generate-service.ts"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
