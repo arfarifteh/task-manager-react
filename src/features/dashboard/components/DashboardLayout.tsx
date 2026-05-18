@@ -1,9 +1,21 @@
 import { getDashboardStats } from '@/services/dashboardService';
+import { useTaskFilters } from '../hooks/useTaskFilters';
 import { StatsCardsRow } from './StatsCardsRow';
+import { TaskList } from './TaskList';
 import { FcBox } from '@/components/ui';
 
 export function DashboardLayout() {
   const stats = getDashboardStats();
+
+  const {
+    activeTab,
+    priority,
+    sortBy,
+    filteredTasks,
+    setActiveTab,
+    setPriority,
+    setSortBy,
+  } = useTaskFilters();
 
   return (
     <FcBox
@@ -21,7 +33,15 @@ export function DashboardLayout() {
       {/* Left column: Quick Add + Task List + Activity Feed */}
       <FcBox sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         {/* Placeholder for QuickAddTask (Phase 3) */}
-        {/* Placeholder for TaskList (Phase 2) */}
+        <TaskList
+          tasks={filteredTasks}
+          activeTab={activeTab}
+          priority={priority}
+          sortBy={sortBy}
+          onTabChange={setActiveTab}
+          onPriorityChange={setPriority}
+          onSortChange={setSortBy}
+        />
         {/* Placeholder for ActivityFeed (Phase 5) */}
       </FcBox>
 

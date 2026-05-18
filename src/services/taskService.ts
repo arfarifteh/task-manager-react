@@ -30,6 +30,7 @@ export function getTasks(filter?: TaskFilter): Task[] {
 
       return (order[a.priority] - order[b.priority]) * dir;
     }
+
     const aVal = a[sortField] ?? '';
 
     const bVal = b[sortField] ?? '';

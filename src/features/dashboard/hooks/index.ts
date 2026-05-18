@@ -1,2 +1,1 @@
-// Dashboard feature hooks
-// Export hooks as they are created
+export { useTaskFilters } from './useTaskFilters';

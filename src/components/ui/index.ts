@@ -72,6 +72,10 @@ export {
   WidgetsIcon,
   LightModeIcon,
   DarkModeIcon,
+  DeleteIcon,
+  EditIcon,
+  PlayArrowIcon,
+  CheckIcon,
 } from './icons';
 
 // Existing components (will be refactored to use Fc internals)

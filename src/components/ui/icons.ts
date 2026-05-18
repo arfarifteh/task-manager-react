@@ -9,3 +9,7 @@ export { default as CheckCircleIcon } from '@mui/icons-material/CheckCircle';
 export { default as WidgetsIcon } from '@mui/icons-material/Widgets';
 export { default as LightModeIcon } from '@mui/icons-material/LightMode';
 export { default as DarkModeIcon } from '@mui/icons-material/DarkMode';
+export { default as DeleteIcon } from '@mui/icons-material/Delete';
+export { default as EditIcon } from '@mui/icons-material/Edit';
+export { default as PlayArrowIcon } from '@mui/icons-material/PlayArrow';
+export { default as CheckIcon } from '@mui/icons-material/Check';

@@ -39,32 +39,32 @@
 
 ### 2.1 Task Tabs
 
-- [ ] 2.1.1 Create `TaskTabs.tsx` — FcTabs with "All Tasks", "In Progress", "Completed" tabs
-- [ ] 2.1.2 Tab selection filters the displayed tasks by status
+- [x] 2.1.1 Create `TaskTabs.tsx` — FcTabs with "All Tasks", "In Progress", "Completed" tabs
+- [x] 2.1.2 Tab selection filters the displayed tasks by status
 
 ### 2.2 Task Filters
 
-- [ ] 2.2.1 Create `TaskFilters.tsx` — Filter (All/High/Medium/Low) and Sort (Due Date/Priority/Title) dropdowns using FcSelect
-- [ ] 2.2.2 Create `useTaskFilters.ts` hook — manages active tab, filter, sort state; returns filtered/sorted task list
+- [x] 2.2.1 Create `TaskFilters.tsx` — Filter (All/High/Medium/Low) and Sort (Due Date/Priority/Title) dropdowns using FcSelect
+- [x] 2.2.2 Create `useTaskFilters.ts` hook — manages active tab, filter, sort state; returns filtered/sorted task list
 
 ### 2.3 Task Row
 
-- [ ] 2.3.1 Create `TaskRow.tsx` — displays: checkbox area, title, priority chip (FcChip), due date, status indicator, action icons placeholder
-- [ ] 2.3.2 Priority chip colors: High → error, Medium → warning, Low → success
-- [ ] 2.3.3 Status indicators: pending → "Start" button, in-progress → no extra indicator, completed → green checkmark icon
+- [x] 2.3.1 Create `TaskRow.tsx` — displays: checkbox area, title, priority chip (FcChip), due date, status indicator, action icons placeholder
+- [x] 2.3.2 Priority chip colors: High → error, Medium → warning, Low → success
+- [x] 2.3.3 Status indicators: pending → "Start" button, in-progress → complete checkmark, completed → green checkmark icon
 
 ### 2.4 Task List
 
-- [ ] 2.4.1 Create `TaskList.tsx` — composes TaskTabs + TaskFilters + list of TaskRow
-- [ ] 2.4.2 Wire to `taskService.getTasks()` mock data via `useTaskFilters` hook
-- [ ] 2.4.3 Place TaskList in DashboardLayout main content zone (below Quick Add placeholder)
+- [x] 2.4.1 Create `TaskList.tsx` — composes TaskTabs + TaskFilters + list of TaskRow
+- [x] 2.4.2 Wire to `taskService.getTasks()` mock data via `useTaskFilters` hook
+- [x] 2.4.3 Place TaskList in DashboardLayout main content zone (below Quick Add placeholder)
 
 ### 2.5 Phase 2 Verification
 
-- [ ] 2.5.1 Tabs switch between All/In Progress/Completed
-- [ ] 2.5.2 Filter and Sort dropdowns update the list
-- [ ] 2.5.3 Add unit tests for TaskRow, TaskTabs, useTaskFilters
-- [ ] 2.5.4 `pnpm lint && pnpm type-check` passes
+- [x] 2.5.1 Tabs switch between All/In Progress/Completed
+- [x] 2.5.2 Filter and Sort dropdowns update the list
+- [x] 2.5.3 Add unit tests for TaskRow, TaskTabs, useTaskFilters
+- [x] 2.5.4 `pnpm lint && pnpm type-check` passes
 
 ---
 

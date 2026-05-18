@@ -10,6 +10,7 @@ export type {
   TaskStatus,
   TaskPriority,
   TaskFilter,
+  TaskSortField,
   NewTaskInput,
 } from '../../types';
 
