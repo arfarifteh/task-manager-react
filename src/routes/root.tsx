@@ -35,12 +35,13 @@ export default function Root() {
     <ThemeProviderWrapper>
       <FcBox sx={{ display: 'flex', minHeight: '100vh' }}>
         <Sidebar />
-        <FcBox sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <FcBox sx={{ flex: 1, display: 'flex', p: 2, flexDirection: 'column' }}>
           <AppHeader />
           <FcBox
             component="main"
             sx={{
               flex: 1,
+              p: 3,
               bgcolor: 'background.default',
               overflow: 'auto',
             }}>

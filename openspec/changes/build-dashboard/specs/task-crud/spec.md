@@ -41,7 +41,9 @@ Create, start, complete, and delete tasks. The Quick Add Task form handles creat
 
 - `useTaskActions` hook encapsulates all CRUD operations
 - Returns: `{ addTask, startTask, completeTask, deleteTask }`
-- Each action triggers a re-render of the task list and stats cards
+- Each action calls the service then triggers a parent-level re-fetch
+- DashboardLayout passes action callbacks down as props — children never call services directly
+- This ensures coordinated refresh: stats, task list, chart all update after any CRUD action
 
 ## Fc Components Used
 

@@ -45,13 +45,15 @@ The project foundation is complete: Fc UI layer, domain types, mock data service
 - Edit icon: placeholder (no edit form yet)
 - Rationale: Deliver core interaction first, refine scenarios later
 
-**State Management: Local state + custom hooks**
+**State Management: Parent-provides-props + custom hooks**
 
+- DashboardLayout is the data owner — calls services and passes data as props to presentational children
 - `useTaskFilters` — manages filter/sort/tab state locally
-- `useTaskActions` — wraps taskService CRUD calls
-- `useDashboard` — aggregates stats, overview, deadlines from services
-- No global state needed yet — all data flows through props from hooks
-- Rationale: Follows ARCHITECTURE.md Rule 3 (progressive state escalation)
+- `useTaskActions` — wraps taskService CRUD calls, triggers parent re-fetch
+- `useDashboard` — aggregates all service calls into a single hook for DashboardLayout
+- Children are pure presentational components (easy to test, no service coupling)
+- Coordinated refreshes: CRUD action → parent re-fetches → all panels update
+- Rationale: Follows ARCHITECTURE.md Rule 3 (progressive state escalation) + React best practice of lifting state up
 
 ## Mockup Decomposition
 

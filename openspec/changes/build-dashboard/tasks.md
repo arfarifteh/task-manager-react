@@ -11,25 +11,25 @@
 
 ### 1.1 Feature Structure
 
-- [ ] 1.1.1 Create `src/features/dashboard/` directory structure (`components/`, `hooks/`, `types.ts`, `index.ts`)
-- [ ] 1.1.2 Create `src/features/dashboard/types.ts` — re-export or extend shared types needed by dashboard components
+- [x] 1.1.1 Create `src/features/dashboard/` directory structure (`components/`, `hooks/`, `types.ts`, `index.ts`)
+- [x] 1.1.2 Create `src/features/dashboard/types.ts` — re-export or extend shared types needed by dashboard components
 
 ### 1.2 Dashboard Layout
 
-- [ ] 1.2.1 Create `DashboardLayout.tsx` — CSS Grid container with zones: stats row, main content (left), right sidebar
-- [ ] 1.2.2 Update `src/routes/index.tsx` to render `DashboardLayout`
+- [x] 1.2.1 Create `DashboardLayout.tsx` — CSS Grid container with zones: stats row, main content (left), right sidebar
+- [x] 1.2.2 Update `src/routes/index.tsx` to render `DashboardLayout`
 
 ### 1.3 Stats Cards
 
-- [ ] 1.3.1 Create `StatsCard.tsx` — FcCard displaying count, label, colored dot + highlight task name
-- [ ] 1.3.2 Create `StatsCardsRow.tsx` — flex row rendering 3 StatsCards (Tasks Today, In Progress, Completed)
-- [ ] 1.3.3 Wire StatsCardsRow to `dashboardService.getDashboardStats()` mock data
-- [ ] 1.3.4 Add unit tests for StatsCard
+- [x] 1.3.1 Create `StatsCard.tsx` — FcCard displaying count, label, colored dot + highlight task name
+- [x] 1.3.2 Create `StatsCardsRow.tsx` — flex row rendering 3 StatsCards (Tasks Today, In Progress, Completed)
+- [x] 1.3.3 Wire StatsCardsRow to `dashboardService.getDashboardStats()` mock data
+- [x] 1.3.4 Add unit tests for StatsCard
 
 ### 1.4 Phase 1 Verification
 
-- [ ] 1.4.1 Visual check: dashboard grid renders with 3 stats cards
-- [ ] 1.4.2 `pnpm lint && pnpm type-check` passes
+- [x] 1.4.1 Visual check: dashboard grid renders with 3 stats cards
+- [x] 1.4.2 `pnpm lint && pnpm type-check` passes
 
 ---
 
