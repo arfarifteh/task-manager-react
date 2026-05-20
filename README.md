@@ -72,7 +72,7 @@ src/
 ├── features/                # Domain features (MANDATORY structure)
 │   └── dashboard/          # Dashboard feature (in progress)
 ├── types/                   # Domain model types
-│   ├── task.ts             # Task, TaskStatus, TaskPriority, TaskFilter
+│   ├── task.ts             # Task (title, description, status, priority, dueDate), TaskFilter
 │   ├── user.ts             # User, UserProfile
 │   ├── activity.ts         # ActivityItem, ActivityType
 │   ├── dashboard.ts        # DashboardStats, TaskOverview

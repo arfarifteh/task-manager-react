@@ -5,6 +5,7 @@ export type TaskPriority = 'high' | 'medium' | 'low';
 export interface Task {
   id: string;
   title: string;
+  description?: string;
   status: TaskStatus;
   priority: TaskPriority;
   dueDate: string; // ISO date string
@@ -24,6 +25,7 @@ export type TaskSortField = 'dueDate' | 'priority' | 'title' | 'createdAt';
 
 export interface NewTaskInput {
   title: string;
+  description?: string;
   priority: TaskPriority;
   dueDate: string;
 }

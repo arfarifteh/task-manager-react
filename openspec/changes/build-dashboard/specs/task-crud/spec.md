@@ -21,10 +21,11 @@ Create, start, complete, and delete tasks. The Quick Add Task form handles creat
 ### Requirements
 
 - Title: FcTextField, required, placeholder "Task Title"
+- Description: FcTextField, optional, placeholder "Description (optional)", multiline (2 rows)
 - Priority: FcSelect with options High / Medium / Low, default "High"
 - Due Date: date input (native HTML date picker or FcTextField type="date")
 - "+ Add Task" button: FcButton primary, triggers creation
-- On submit: calls `taskService.addTask({ title, priority, dueDate })`
+- On submit: calls `taskService.addTask({ title, description, priority, dueDate })`
 - After submit: clear form fields, task list refreshes
 - Validation: title and dueDate are required; show inline error if empty on submit
 

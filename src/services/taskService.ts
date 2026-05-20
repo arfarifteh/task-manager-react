@@ -51,6 +51,7 @@ export function addTask(input: NewTaskInput): Task {
   const task: Task = {
     id: generateId(),
     title: input.title,
+    description: input.description,
     status: 'pending',
     priority: input.priority,
     dueDate: input.dueDate,

@@ -35,7 +35,6 @@ const statusDotSx = (status: TaskStatus) => ({
 });
 
 const titleSx = (status: TaskStatus) => ({
-  flex: 1,
   textDecoration: status === 'completed' ? 'line-through' : 'none',
   color: status === 'completed' ? 'text.secondary' : 'text.primary',
 });
@@ -119,7 +118,14 @@ export function TaskRow({
   return (
     <FcBox sx={rowSx}>
       <FcBox sx={statusDotSx(task.status)}>{statusIcon}</FcBox>
-      <FcTypography sx={titleSx(task.status)}>{task.title}</FcTypography>
+      <FcBox sx={{ flex: 1 }}>
+        <FcTypography sx={titleSx(task.status)}>{task.title}</FcTypography>
+        {task.description && (
+          <FcTypography caption secondary sx={{ mt: 0.25 }}>
+            {task.description}
+          </FcTypography>
+        )}
+      </FcBox>
       <FcChip
         label={task.priority}
         high={task.priority === 'high'}

@@ -10,6 +10,8 @@ export const mockTasks: Task[] = [
   {
     id: 't1',
     title: 'Build User Dashboard',
+    description:
+      'Create the main dashboard layout with stats cards, task list, and activity feed using CSS Grid.',
     status: 'pending',
     priority: 'high',
     dueDate: '2026-04-25',
@@ -19,6 +21,8 @@ export const mockTasks: Task[] = [
   {
     id: 't2',
     title: 'Fix Mobile Responsiveness',
+    description:
+      'Ensure sidebar collapses on mobile and task list stacks properly on small screens.',
     status: 'in-progress',
     priority: 'medium',
     dueDate: '2026-04-27',
@@ -28,6 +32,8 @@ export const mockTasks: Task[] = [
   {
     id: 't3',
     title: 'Write API Documentation',
+    description:
+      'Document all service endpoints and mock data structures for developer reference.',
     status: 'completed',
     priority: 'low',
     dueDate: '2026-04-20',
@@ -38,6 +44,8 @@ export const mockTasks: Task[] = [
   {
     id: 't4',
     title: 'Code Review for Auth Module',
+    description:
+      'Review the authentication flow including token refresh and session management logic.',
     status: 'pending',
     priority: 'high',
     dueDate: '2026-04-22',
@@ -47,6 +55,8 @@ export const mockTasks: Task[] = [
   {
     id: 't5',
     title: 'Ember Integration',
+    description:
+      'Integrate Ember analytics SDK for tracking user interactions and performance metrics.',
     status: 'pending',
     priority: 'medium',
     dueDate: '2026-04-28',
@@ -56,6 +66,8 @@ export const mockTasks: Task[] = [
   {
     id: 't6',
     title: 'Redux Refactoring',
+    description:
+      'Migrate legacy Redux slices to React Query for server state and local hooks for UI state.',
     status: 'in-progress',
     priority: 'high',
     dueDate: '2026-04-30',
@@ -65,6 +77,8 @@ export const mockTasks: Task[] = [
   {
     id: 't7',
     title: 'API Documentation Update',
+    description:
+      'Update Swagger docs to reflect new v2 endpoints and deprecation notices.',
     status: 'completed',
     priority: 'low',
     dueDate: '2026-04-18',
@@ -75,6 +89,8 @@ export const mockTasks: Task[] = [
   {
     id: 't8',
     title: 'Setup CI/CD Pipeline',
+    description:
+      'Configure GitHub Actions for lint, test, build, and deploy stages with environment secrets.',
     status: 'in-progress',
     priority: 'medium',
     dueDate: '2026-05-01',

@@ -6,6 +6,7 @@ import type { Task } from '../types';
 const pendingTask: Task = {
   id: 't1',
   title: 'Write tests',
+  description: 'Add unit tests for all dashboard components.',
   status: 'pending',
   priority: 'high',
   dueDate: '2026-05-20T00:00:00.000Z',
