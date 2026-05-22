@@ -1,5 +1,11 @@
 export { TaskStatus, TaskPriority } from './task';
-export type { Task, TaskFilter, TaskSortField, NewTaskInput } from './task';
+export type {
+  Task,
+  TaskFilter,
+  TaskSortField,
+  NewTaskInput,
+  EditTaskInput,
+} from './task';
 
 export type { User, UserProfile, UserPreferences } from './user';
 

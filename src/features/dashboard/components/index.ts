@@ -1,5 +1,6 @@
 export { DashboardLayout } from './DashboardLayout';
 export { AddTask } from './AddTask';
+export { EditTaskModal } from './EditTaskModal';
 export { StatsCard } from './StatsCard';
 export { StatsCardsRow } from './StatsCardsRow';
 export { TaskTabs } from './TaskTabs';

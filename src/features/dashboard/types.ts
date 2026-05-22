@@ -11,6 +11,7 @@ export type {
   TaskFilter,
   TaskSortField,
   NewTaskInput,
+  EditTaskInput,
 } from '../../types';
 
 export type {

@@ -7,6 +7,7 @@ vi.mock('@/services/taskService', () => ({
   addTask: vi.fn(),
   updateTaskStatus: vi.fn(),
   deleteTask: vi.fn(),
+  updateTask: vi.fn(),
 }));
 
 describe('useTaskActions', () => {
@@ -57,6 +58,18 @@ describe('useTaskActions', () => {
 
     act(() => {
       result.current.removeTask('t1');
+    });
+
+    expect(onRefresh).toHaveBeenCalledTimes(1);
+  });
+
+  it('calls onRefresh after editTask', () => {
+    const onRefresh = vi.fn();
+
+    const { result } = renderHook(() => useTaskActions(onRefresh));
+
+    act(() => {
+      result.current.editTask('t1', { title: 'Updated' });
     });
 
     expect(onRefresh).toHaveBeenCalledTimes(1);

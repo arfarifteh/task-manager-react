@@ -42,3 +42,7 @@ export interface NewTaskInput {
   priority: TaskPriority;
   dueDate: string;
 }
+
+export type EditTaskInput = Partial<
+  Pick<Task, 'title' | 'description' | 'priority' | 'dueDate'>
+>;

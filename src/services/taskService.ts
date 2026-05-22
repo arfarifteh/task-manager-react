@@ -1,6 +1,6 @@
 import { TaskStatus } from '../types';
 import { mockTasks } from './mockData';
-import type { Task, TaskFilter, NewTaskInput } from '../types';
+import type { Task, TaskFilter, NewTaskInput, EditTaskInput } from '../types';
 
 let tasks = [...mockTasks];
 
@@ -68,19 +68,30 @@ export function updateTaskStatus(
   id: string,
   status: TaskStatus
 ): Task | undefined {
-  const idx = tasks.findIndex(t => t.id === id);
+  const task = tasks.find(t => t.id === id);
 
-  if (idx === -1) return undefined;
+  if (!task) return undefined;
 
   const now = new Date().toISOString();
 
-  tasks[idx] = {
-    ...tasks[idx],
-    status,
-    updatedAt: now,
-    completedAt: status === TaskStatus.completed ? now : tasks[idx].completedAt,
-  };
-  return tasks[idx];
+  task.status = status;
+  task.updatedAt = now;
+  task.completedAt = status === TaskStatus.completed ? now : task.completedAt;
+
+  return task;
+}
+
+export function updateTask(
+  id: string,
+  updates: EditTaskInput
+): Task | undefined {
+  const task = tasks.find(t => t.id === id);
+
+  if (!task) return undefined;
+
+  Object.assign(task, updates, { updatedAt: new Date().toISOString() });
+
+  return task;
 }
 
 export function deleteTask(id: string): boolean {

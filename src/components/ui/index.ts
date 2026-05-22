@@ -35,6 +35,10 @@ export type { FcAvatarProps } from './FcAvatar';
 export { FcTabs, FcTab } from './FcTabs';
 export type { FcTabsProps, FcTabProps } from './FcTabs';
 
+// Overlay
+export { FcDialog } from './FcDialog';
+export type { FcDialogProps } from './FcDialog';
+
 // Feedback
 export { FcAlert } from './FcAlert';
 export type { FcAlertProps } from './FcAlert';

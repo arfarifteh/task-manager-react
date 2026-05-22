@@ -16,7 +16,7 @@ interface TaskListProps {
   onStart?: (id: string) => void;
   onComplete?: (id: string) => void;
   onDelete?: (id: string) => void;
-  onEdit?: (id: string) => void;
+  onEdit?: (task: Task) => void;
 }
 
 export function TaskList({

@@ -50,7 +50,7 @@ interface TaskRowProps {
   onStart?: (id: string) => void;
   onComplete?: (id: string) => void;
   onDelete?: (id: string) => void;
-  onEdit?: (id: string) => void;
+  onEdit?: (task: Task) => void;
 }
 
 function TaskRowActions({
@@ -85,7 +85,7 @@ function TaskRowActions({
         {onEdit && (
           <FcIconButton
             size="small"
-            onClick={() => onEdit(task.id)}
+            onClick={() => onEdit(task)}
             aria-label={`Edit task: ${task.title}`}>
             <EditIcon fontSize="small" />
           </FcIconButton>
