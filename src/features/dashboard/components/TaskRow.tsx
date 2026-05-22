@@ -1,4 +1,5 @@
-import type { Task, TaskStatus } from '../types';
+import { TaskPriority, TaskStatus } from '../types';
+import type { Task } from '../types';
 import {
   FcBox,
   FcTypography,
@@ -22,21 +23,26 @@ const rowSx = {
   '&:last-child': { borderBottom: 0 },
 } as const;
 
+const statusColors: Record<TaskStatus, string> = {
+  [TaskStatus.new]: 'grey.400',
+  [TaskStatus.pending]: 'primary.dark',
+  [TaskStatus.inProgress]: 'warning.main',
+  [TaskStatus.completed]: 'success.main',
+};
+
 const statusDotSx = (status: TaskStatus) => ({
   width: 24,
   height: 24,
   borderRadius: '50%',
-  border: status === 'completed' ? 'none' : 2,
-  borderColor: 'divider',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  bgcolor: status === 'completed' ? 'success.main' : 'transparent',
+  bgcolor: statusColors[status],
 });
 
 const titleSx = (status: TaskStatus) => ({
-  textDecoration: status === 'completed' ? 'line-through' : 'none',
-  color: status === 'completed' ? 'text.secondary' : 'text.primary',
+  textDecoration: status === TaskStatus.completed ? 'line-through' : 'none',
+  color: status === TaskStatus.completed ? 'text.secondary' : 'text.primary',
 });
 
 interface TaskRowProps {
@@ -56,7 +62,7 @@ function TaskRowActions({
 }: TaskRowProps) {
   return (
     <>
-      {task.status === 'pending' && onStart && (
+      {task.status === TaskStatus.pending && onStart && (
         <FcButton
           small
           outlined
@@ -66,12 +72,12 @@ function TaskRowActions({
           Start
         </FcButton>
       )}
-      {task.status === 'in-progress' && onComplete && (
+      {task.status === TaskStatus.inProgress && onComplete && (
         <FcIconButton
           size="small"
           onClick={() => onComplete(task.id)}
           aria-label={`Complete task: ${task.title}`}
-          sx={{ color: 'success.main' }}>
+          sx={{ color: 'status.inProgress' }}>
           <CheckCircleIcon fontSize="small" />
         </FcIconButton>
       )}
@@ -111,7 +117,7 @@ export function TaskRow({
   });
 
   const statusIcon =
-    task.status === 'completed' ? (
+    task.status === TaskStatus.completed ? (
       <CheckCircleIcon sx={{ fontSize: 24, color: 'success.main' }} />
     ) : null;
 
@@ -128,9 +134,9 @@ export function TaskRow({
       </FcBox>
       <FcChip
         label={task.priority}
-        high={task.priority === 'high'}
-        medium={task.priority === 'medium'}
-        low={task.priority === 'low'}
+        high={task.priority === TaskPriority.high}
+        medium={task.priority === TaskPriority.medium}
+        low={task.priority === TaskPriority.low}
       />
       <FcTypography caption secondary sx={{ minWidth: 100 }}>
         Due: {formattedDate}

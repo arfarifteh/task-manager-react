@@ -5,10 +5,9 @@
  * and defines dashboard-specific types.
  */
 
+export { TaskStatus, TaskPriority } from '../../types';
 export type {
   Task,
-  TaskStatus,
-  TaskPriority,
   TaskFilter,
   TaskSortField,
   NewTaskInput,

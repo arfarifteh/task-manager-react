@@ -1,5 +1,6 @@
+import { TaskStatus } from '../types';
 import { mockTasks } from './mockData';
-import type { Task, TaskFilter, TaskStatus, NewTaskInput } from '../types';
+import type { Task, TaskFilter, NewTaskInput } from '../types';
 
 let tasks = [...mockTasks];
 
@@ -52,7 +53,7 @@ export function addTask(input: NewTaskInput): Task {
     id: generateId(),
     title: input.title,
     description: input.description,
-    status: 'pending',
+    status: TaskStatus.new,
     priority: input.priority,
     dueDate: input.dueDate,
     createdAt: now,
@@ -77,7 +78,7 @@ export function updateTaskStatus(
     ...tasks[idx],
     status,
     updatedAt: now,
-    completedAt: status === 'completed' ? now : tasks[idx].completedAt,
+    completedAt: status === TaskStatus.completed ? now : tasks[idx].completedAt,
   };
   return tasks[idx];
 }
@@ -97,8 +98,8 @@ export function getTaskCounts(): {
 } {
   return {
     total: tasks.length,
-    pending: tasks.filter(t => t.status === 'pending').length,
-    inProgress: tasks.filter(t => t.status === 'in-progress').length,
-    completed: tasks.filter(t => t.status === 'completed').length,
+    pending: tasks.filter(t => t.status === TaskStatus.pending).length,
+    inProgress: tasks.filter(t => t.status === TaskStatus.inProgress).length,
+    completed: tasks.filter(t => t.status === TaskStatus.completed).length,
   };
 }

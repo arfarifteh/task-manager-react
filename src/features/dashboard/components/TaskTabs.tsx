@@ -1,4 +1,4 @@
-import type { TaskStatus } from '../types';
+import { TaskStatus } from '../types';
 import { FcBox, FcTabs, FcTab } from '@/components/ui';
 
 export type TabValue = TaskStatus | 'all';
@@ -10,8 +10,8 @@ interface TaskTabsProps {
 
 const tabs: { label: string; value: TabValue }[] = [
   { label: 'All Tasks', value: 'all' },
-  { label: 'In Progress', value: 'in-progress' },
-  { label: 'Completed', value: 'completed' },
+  { label: 'In Progress', value: TaskStatus.inProgress },
+  { label: 'Completed', value: TaskStatus.completed },
 ];
 
 export function TaskTabs({ value, onChange }: TaskTabsProps) {

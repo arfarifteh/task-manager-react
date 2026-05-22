@@ -1,4 +1,5 @@
 export { DashboardLayout } from './DashboardLayout';
+export { AddTask } from './AddTask';
 export { StatsCard } from './StatsCard';
 export { StatsCardsRow } from './StatsCardsRow';
 export { TaskTabs } from './TaskTabs';

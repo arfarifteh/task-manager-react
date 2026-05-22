@@ -1,6 +1,19 @@
-export type TaskStatus = 'pending' | 'in-progress' | 'completed';
+export const TaskStatus = {
+  new: 'new',
+  pending: 'pending',
+  inProgress: 'in-progress',
+  completed: 'completed',
+} as const;
 
-export type TaskPriority = 'high' | 'medium' | 'low';
+export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus];
+
+export const TaskPriority = {
+  high: 'high',
+  medium: 'medium',
+  low: 'low',
+} as const;
+
+export type TaskPriority = (typeof TaskPriority)[keyof typeof TaskPriority];
 
 export interface Task {
   id: string;

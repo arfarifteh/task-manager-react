@@ -1,5 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { TaskPriority, TaskStatus } from '../types';
 import { useTaskFilters } from './useTaskFilters';
 
 describe('useTaskFilters', () => {
@@ -16,12 +17,12 @@ describe('useTaskFilters', () => {
     const { result } = renderHook(() => useTaskFilters());
 
     act(() => {
-      result.current.setActiveTab('completed');
+      result.current.setActiveTab(TaskStatus.completed);
     });
 
-    expect(result.current.activeTab).toBe('completed');
+    expect(result.current.activeTab).toBe(TaskStatus.completed);
     result.current.filteredTasks.forEach(task => {
-      expect(task.status).toBe('completed');
+      expect(task.status).toBe(TaskStatus.completed);
     });
   });
 
@@ -29,12 +30,12 @@ describe('useTaskFilters', () => {
     const { result } = renderHook(() => useTaskFilters());
 
     act(() => {
-      result.current.setPriority('high');
+      result.current.setPriority(TaskPriority.high);
     });
 
-    expect(result.current.priority).toBe('high');
+    expect(result.current.priority).toBe(TaskPriority.high);
     result.current.filteredTasks.forEach(task => {
-      expect(task.priority).toBe('high');
+      expect(task.priority).toBe(TaskPriority.high);
     });
   });
 

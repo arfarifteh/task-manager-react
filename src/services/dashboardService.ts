@@ -1,3 +1,4 @@
+import { TaskStatus } from '../types';
 import { getTasks, getTaskCounts } from './taskService';
 import type { DashboardStats, TaskOverview, UpcomingDeadline } from '../types';
 
@@ -6,11 +7,11 @@ export function getDashboardStats(): DashboardStats {
 
   const tasks = getTasks();
 
-  const todayTasks = tasks.filter(t => t.status === 'pending');
+  const todayTasks = tasks.filter(t => t.status === TaskStatus.pending);
 
-  const inProgressTasks = tasks.filter(t => t.status === 'in-progress');
+  const inProgressTasks = tasks.filter(t => t.status === TaskStatus.inProgress);
 
-  const completedTasks = tasks.filter(t => t.status === 'completed');
+  const completedTasks = tasks.filter(t => t.status === TaskStatus.completed);
 
   return {
     tasksToday: {
@@ -47,7 +48,7 @@ export function getUpcomingDeadlines(limit = 3): UpcomingDeadline[] {
   const tasks = getTasks({ sortBy: 'dueDate', sortOrder: 'asc' });
 
   return tasks
-    .filter(t => t.status !== 'completed')
+    .filter(t => t.status !== TaskStatus.completed)
     .slice(0, limit)
     .map(t => ({
       taskId: t.id,

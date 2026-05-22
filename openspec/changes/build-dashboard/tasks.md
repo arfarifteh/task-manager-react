@@ -74,32 +74,32 @@
 
 ### 3.1 Quick Add Task Form
 
-- [ ] 3.1.1 Create `QuickAddTask.tsx` — FcCard with: title FcTextField, "+ Add Task" FcButton, Priority FcSelect, Due Date input
-- [ ] 3.1.2 Local form state: title, priority (default: "high"), dueDate
-- [ ] 3.1.3 On submit: call `taskService.addTask()`, clear form, refresh task list
-- [ ] 3.1.4 Basic validation: title required, dueDate required
+- [x] 3.1.1 Create `QuickAddTask.tsx` — FcCard with: title FcTextField, description (optional), "+ Add Task" FcButton, Priority FcSelect, Due Date input
+- [x] 3.1.2 Local form state: title, description, priority (default: "high"), dueDate
+- [x] 3.1.3 On submit: call `taskService.addTask()`, clear form, refresh task list
+- [x] 3.1.4 Basic validation: title required, dueDate required
 
 ### 3.2 Task Row Actions
 
-- [ ] 3.2.1 Create `useTaskActions.ts` hook — wraps `taskService` methods: `startTask(id)`, `completeTask(id)`, `deleteTask(id)`
-- [ ] 3.2.2 "Start" button on pending tasks → calls `updateTaskStatus(id, 'in-progress')`
-- [ ] 3.2.3 Complete action on in-progress tasks → calls `updateTaskStatus(id, 'completed')`
-- [ ] 3.2.4 Delete icon → calls `deleteTask(id)` with confirmation (simple)
-- [ ] 3.2.5 Edit icon → placeholder (no-op or console.log for now)
+- [x] 3.2.1 Create `useTaskActions.ts` hook — wraps `taskService` methods: `startTask(id)`, `completeTask(id)`, `deleteTask(id)`
+- [x] 3.2.2 "Start" button on pending tasks → calls `updateTaskStatus(id, 'in-progress')`
+- [x] 3.2.3 Complete action on in-progress tasks → calls `updateTaskStatus(id, 'completed')`
+- [x] 3.2.4 Delete icon → calls `deleteTask(id)` (direct, no confirmation for now)
+- [x] 3.2.5 Edit icon → placeholder (console.log for now)
 
 ### 3.3 Wire CRUD to Task List
 
-- [ ] 3.3.1 Pass action callbacks from useTaskActions to TaskRow
-- [ ] 3.3.2 Task list refreshes after any CRUD operation
-- [ ] 3.3.3 Place QuickAddTask in DashboardLayout above TaskList
+- [x] 3.3.1 Pass action callbacks from useTaskActions to TaskRow
+- [x] 3.3.2 Task list refreshes after any CRUD operation (refresh counter in useTaskFilters)
+- [x] 3.3.3 Place QuickAddTask in DashboardLayout above TaskList
 
 ### 3.4 Phase 3 Verification
 
-- [ ] 3.4.1 Can add a task via Quick Add form; it appears in the list
-- [ ] 3.4.2 Can start, complete, and delete tasks via row actions
-- [ ] 3.4.3 Stats cards update after CRUD operations
-- [ ] 3.4.4 Add unit tests for QuickAddTask, useTaskActions
-- [ ] 3.4.5 `pnpm lint && pnpm type-check` passes
+- [x] 3.4.1 Can add a task via Quick Add form; it appears in the list
+- [x] 3.4.2 Can start, complete, and delete tasks via row actions
+- [x] 3.4.3 Stats cards update after CRUD operations (getDashboardStats re-called on refresh)
+- [x] 3.4.4 Add unit tests for QuickAddTask, useTaskActions
+- [x] 3.4.5 `pnpm lint && pnpm type-check` passes
 
 ---
 

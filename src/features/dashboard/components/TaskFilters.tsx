@@ -1,4 +1,5 @@
-import type { TaskPriority, TaskSortField } from '../types';
+import { TaskPriority } from '../types';
+import type { TaskSortField } from '../types';
 import { FcBox, FcSelect, type FcSelectOption } from '@/components/ui';
 
 type PriorityFilter = TaskPriority | 'all';
@@ -12,9 +13,9 @@ interface TaskFiltersProps {
 
 const priorityOptions: FcSelectOption<PriorityFilter>[] = [
   { value: 'all', label: 'All Priorities' },
-  { value: 'high', label: 'High' },
-  { value: 'medium', label: 'Medium' },
-  { value: 'low', label: 'Low' },
+  { value: TaskPriority.high, label: 'High' },
+  { value: TaskPriority.medium, label: 'Medium' },
+  { value: TaskPriority.low, label: 'Low' },
 ];
 
 const sortOptions: FcSelectOption<TaskSortField>[] = [

@@ -1,12 +1,19 @@
 import { getDashboardStats } from '@/services/dashboardService';
+import { useTaskActions } from '../hooks/useTaskActions';
 import { useTaskFilters } from '../hooks/useTaskFilters';
+import { AddTask } from './AddTask';
 import { StatsCardsRow } from './StatsCardsRow';
 import { TaskList } from './TaskList';
 import { FcBox } from '@/components/ui';
 
-export function DashboardLayout() {
-  const stats = getDashboardStats();
+const gridSx = {
+  display: 'grid',
+  gridTemplateColumns: { xs: '1fr', md: '1fr 320px' },
+  gridTemplateRows: 'auto 1fr',
+  gap: 3,
+} as const;
 
+export function DashboardLayout() {
   const {
     activeTab,
     priority,
@@ -15,16 +22,16 @@ export function DashboardLayout() {
     setActiveTab,
     setPriority,
     setSortBy,
+    refresh,
   } = useTaskFilters();
 
+  const { createTask, startTask, completeTask, removeTask } =
+    useTaskActions(refresh);
+
+  const stats = getDashboardStats();
+
   return (
-    <FcBox
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '1fr 320px' },
-        gridTemplateRows: 'auto 1fr',
-        gap: 3,
-      }}>
+    <FcBox sx={gridSx}>
       {/* A — Stats Cards Row (full width) */}
       <FcBox sx={{ gridColumn: '1 / -1' }}>
         <StatsCardsRow stats={stats} />
@@ -32,7 +39,7 @@ export function DashboardLayout() {
 
       {/* Left column: Quick Add + Task List + Activity Feed */}
       <FcBox sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        {/* Placeholder for QuickAddTask (Phase 3) */}
+        <AddTask onAdd={createTask} />
         <TaskList
           tasks={filteredTasks}
           activeTab={activeTab}
@@ -41,6 +48,10 @@ export function DashboardLayout() {
           onTabChange={setActiveTab}
           onPriorityChange={setPriority}
           onSortChange={setSortBy}
+          onStart={startTask}
+          onComplete={completeTask}
+          onDelete={removeTask}
+          onEdit={id => console.log('Edit task:', id)}
         />
         {/* Placeholder for ActivityFeed (Phase 5) */}
       </FcBox>

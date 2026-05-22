@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
+import { TaskPriority, TaskStatus } from '../types';
 import { TaskRow } from './TaskRow';
 import type { Task } from '../types';
 
@@ -7,8 +8,8 @@ const pendingTask: Task = {
   id: 't1',
   title: 'Write tests',
   description: 'Add unit tests for all dashboard components.',
-  status: 'pending',
-  priority: 'high',
+  status: TaskStatus.pending,
+  priority: TaskPriority.high,
   dueDate: '2026-05-20T00:00:00.000Z',
   createdAt: '2026-05-15T00:00:00.000Z',
   updatedAt: '2026-05-15T00:00:00.000Z',
@@ -18,16 +19,16 @@ const inProgressTask: Task = {
   ...pendingTask,
   id: 't2',
   title: 'Review PR',
-  status: 'in-progress',
-  priority: 'medium',
+  status: TaskStatus.inProgress,
+  priority: TaskPriority.medium,
 };
 
 const completedTask: Task = {
   ...pendingTask,
   id: 't3',
   title: 'Deploy app',
-  status: 'completed',
-  priority: 'low',
+  status: TaskStatus.completed,
+  priority: TaskPriority.low,
 };
 
 describe('TaskRow', () => {
@@ -35,7 +36,7 @@ describe('TaskRow', () => {
     render(<TaskRow task={pendingTask} />);
 
     expect(screen.getByText('Write tests')).toBeInTheDocument();
-    expect(screen.getByText('high')).toBeInTheDocument();
+    expect(screen.getByText(TaskPriority.high)).toBeInTheDocument();
   });
 
   it('renders due date', () => {

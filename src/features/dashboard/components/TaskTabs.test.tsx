@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
+import { TaskStatus } from '../types';
 import { TaskTabs } from './TaskTabs';
 
 describe('TaskTabs', () => {
@@ -17,11 +18,11 @@ describe('TaskTabs', () => {
     render(<TaskTabs value="all" onChange={onChange} />);
     fireEvent.click(screen.getByText('In Progress'));
 
-    expect(onChange).toHaveBeenCalledWith('in-progress');
+    expect(onChange).toHaveBeenCalledWith(TaskStatus.inProgress);
   });
 
   it('highlights the active tab', () => {
-    render(<TaskTabs value="in-progress" onChange={vi.fn()} />);
+    render(<TaskTabs value={TaskStatus.inProgress} onChange={vi.fn()} />);
 
     const tab = screen.getByText('In Progress');
 
