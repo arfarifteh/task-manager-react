@@ -35,6 +35,10 @@ export type { FcAvatarProps } from './FcAvatar';
 export { FcTabs, FcTab } from './FcTabs';
 export type { FcTabsProps, FcTabProps } from './FcTabs';
 
+// Charts
+export { FcDonutChart } from './FcDonutChart';
+export type { FcDonutChartProps, FcDonutSegment } from './FcDonutChart';
+
 // Overlay
 export { FcDialog } from './FcDialog';
 export type { FcDialogProps } from './FcDialog';

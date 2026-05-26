@@ -107,27 +107,27 @@
 
 > Goal: Donut chart showing task status distribution in the right sidebar.
 
-### 4.1 Recharts Setup
+### 4.1 D3 Setup
 
-- [ ] 4.1.1 Install Recharts: `pnpm add recharts`
-- [ ] 4.1.2 Create `FcPieChart` Fc wrapper (optional — or use Recharts directly in feature since it's not MUI)
+- [x] 4.1.1 Install D3 shape & scale modules: `pnpm add d3-shape d3-scale` + types `pnpm add -D @types/d3-shape @types/d3-scale`
+- [x] 4.1.2 Create `DonutChart.tsx` utility component — uses `d3.pie()` + `d3.arc()` for math, React JSX for SVG rendering (D3 for math, React for DOM pattern)
 
 ### 4.2 Task Overview Chart
 
-- [ ] 4.2.1 Create `TaskOverviewChart.tsx` — FcCard with Recharts `<PieChart>` donut showing In Progress / Completed / Pending percentages
-- [ ] 4.2.2 Chart colors match mockup: blue (In Progress), green (Completed), yellow (Pending)
-- [ ] 4.2.3 Display percentage labels on chart segments + legend below
-- [ ] 4.2.4 Wire to `dashboardService.getTaskOverview()` data
+- [x] 4.2.1 Create `TaskOverviewChart.tsx` — FcCard with DonutChart showing In Progress / Completed / Pending percentages
+- [x] 4.2.2 Chart colors match mockup: blue (In Progress), green (Completed), yellow (Pending)
+- [x] 4.2.3 Display percentage labels on chart segments + legend below
+- [x] 4.2.4 Wire to `dashboardService.getTaskOverview()` data
 
 ### 4.3 Place in Layout
 
-- [ ] 4.3.1 Place TaskOverviewChart in DashboardLayout right sidebar zone (top)
+- [x] 4.3.1 Place TaskOverviewChart in DashboardLayout right sidebar zone (top)
 
 ### 4.4 Phase 4 Verification
 
-- [ ] 4.4.1 Donut chart renders with correct percentages from mock data
-- [ ] 4.4.2 Chart updates when tasks are created/started/completed/deleted
-- [ ] 4.4.3 `pnpm lint && pnpm type-check` passes
+- [x] 4.4.1 Donut chart renders with correct percentages from mock data
+- [x] 4.4.2 Chart updates when tasks are created/started/completed/deleted
+- [x] 4.4.3 `pnpm lint && pnpm type-check` passes
 
 ---
 

@@ -30,12 +30,13 @@ The project foundation is complete: Fc UI layer, domain types, mock data service
 - Only shared types from `src/types/` and Fc components from `src/components/ui/` are imported
 - Rationale: Follows ARCHITECTURE.md Rule 1 (feature-based structure)
 
-**Charting: Recharts over D3.js**
+**Charting: D3.js (d3-shape + d3-scale) with React DOM pattern**
 
-- Recharts provides declarative `<PieChart>` / `<Pie>` / `<Cell>` components
-- Built on D3, so we can drop to raw D3 if complex visualizations are needed later
-- For a single donut chart, Recharts is ~15 lines vs ~60+ in D3
-- Alternative considered: D3.js — rejected for this use case (overkill), Nivo — heavier bundle
+- Uses D3 for math (pie layout, arc generator) and React JSX for SVG rendering — no `useEffect`/`useRef` DOM manipulation
+- `FcDonutChart` created in `src/components/ui/` as a reusable Fc wrapper — consistent with the Fc layer convention and reusable elsewhere in the app
+- `FcDonutSegment` and `FcDonutChartProps` exported from the ui barrel
+- `showLegend` boolean prop (default `false`) encapsulates chart + legend + hover state inside `FcDonutChart` — consumer passes data only, no lifted state needed
+- Hover interactions: segment expand (+8px outerRadius) + center label tooltip on chart hover; legend hover fades non-active rows — all internal to `FcDonutChart`
 
 **Task Actions: Simplest possible for now**
 
@@ -135,16 +136,16 @@ src/features/dashboard/
 | TaskRow           | FcBox, FcTypography, FcChip, FcIconButton             |
 | TaskList          | FcBox, FcTypography                                   |
 | QuickAddTask      | FcCard, FcTextField, FcSelect, FcButton, FcTypography |
-| TaskOverviewChart | FcCard, FcTypography, FcBox + Recharts                |
+| TaskOverviewChart | FcCard, FcTypography, FcDonutChart                    |
 | UpcomingDeadlines | FcCard, FcTypography, FcBox                           |
 | ActivityFeed      | FcCard, FcTypography, FcBox                           |
 | ActivityItem      | FcBox, FcTypography                                   |
 
 ## Risks / Trade-offs
 
-**[Recharts bundle size]** Adds ~130KB to the bundle for one chart.
+**[D3 tree-shaking]** Only `d3-shape` and `d3-scale` are installed (~30KB gzipped combined), not the full `d3` package.
 
-- Mitigation: Lazy-load the chart component; bundle impact is acceptable for a dashboard app.
+- Mitigation: Importing submodules directly keeps bundle overhead minimal.
 
 **[Mock data limitations]** Task actions mutate in-memory arrays — state resets on page refresh.
 

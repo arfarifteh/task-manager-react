@@ -7,3 +7,4 @@ export { TaskTabs } from './TaskTabs';
 export { TaskFilters } from './TaskFilters';
 export { TaskRow } from './TaskRow';
 export { TaskList } from './TaskList';
+export { TaskOverviewChart } from './TaskOverviewChart';

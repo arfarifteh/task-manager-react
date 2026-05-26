@@ -6,6 +6,7 @@ import { AddTask } from './AddTask';
 import { EditTaskModal } from './EditTaskModal';
 import { StatsCardsRow } from './StatsCardsRow';
 import { TaskList } from './TaskList';
+import { TaskOverviewChart } from './TaskOverviewChart';
 import type { EditTaskInput, Task } from '../types';
 import { FcBox } from '@/components/ui';
 
@@ -59,7 +60,9 @@ export function DashboardLayout() {
             onEdit={setEditingTask}
           />
         </FcBox>
-        <FcBox sx={{ display: 'flex', flexDirection: 'column', gap: 3 }} />
+        <FcBox sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <TaskOverviewChart />
+        </FcBox>
       </DashboardGrid>
       <EditTaskModal
         task={editingTask}
