@@ -8,3 +8,6 @@ export { TaskFilters } from './TaskFilters';
 export { TaskRow } from './TaskRow';
 export { TaskList } from './TaskList';
 export { TaskOverviewChart } from './TaskOverviewChart';
+export { UpcomingDeadlines } from './UpcomingDeadlines';
+export { ActivityFeedItem } from './ActivityFeedItem';
+export { ActivityFeed } from './ActivityFeed';

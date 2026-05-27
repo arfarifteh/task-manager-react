@@ -137,29 +137,29 @@
 
 ### 5.1 Upcoming Deadlines
 
-- [ ] 5.1.1 Create `UpcomingDeadlines.tsx` — FcCard with list of tasks approaching due date (title as blue link + date)
-- [ ] 5.1.2 Wire to `dashboardService.getUpcomingDeadlines()` data
-- [ ] 5.1.3 Place in DashboardLayout right sidebar zone (below chart)
+- [x] 5.1.1 Create `UpcomingDeadlines.tsx` — FcCard with list of tasks approaching due date (title as blue link + date)
+- [x] 5.1.2 Wire to `dashboardService.getUpcomingDeadlines()` data
+- [x] 5.1.3 Place in DashboardLayout right sidebar zone (below chart)
 
 ### 5.2 Activity Feed
 
-- [ ] 5.2.1 Create `ActivityItem.tsx` — colored dot (blue/red/green by type) + message with bold highlight text + relative timestamp
-- [ ] 5.2.2 Create `ActivityFeed.tsx` — FcCard with "Activity Feed" title + list of ActivityItems
-- [ ] 5.2.3 Wire to `activityService.getActivities()` data
-- [ ] 5.2.4 Place in DashboardLayout main content zone (below TaskList)
+- [x] 5.2.1 Create `ActivityFeedItem.tsx` — colored dot (blue/red/green by type) + message with bold highlight text + relative timestamp
+- [x] 5.2.2 Create `ActivityFeed.tsx` — FcCard with "Activity Feed" title + list of ActivityFeedItems
+- [x] 5.2.3 Wire to `activityService.getActivities()` data
+- [x] 5.2.4 Place in DashboardLayout main content zone (below TaskList)
 
 ### 5.3 Dashboard Hook
 
-- [ ] 5.3.1 Create `useDashboard.ts` — aggregates stats, overview, deadlines, activities; provides a single data source for DashboardLayout
-- [ ] 5.3.2 Refactor DashboardLayout to use `useDashboard` as primary data hook
+- [x] 5.3.1 Create `useDashboard.ts` — aggregates stats, overview, deadlines, activities; provides a single data source for DashboardLayout
+- [x] 5.3.2 Refactor DashboardLayout to use `useDashboard` as primary data hook
 
 ### 5.4 Polish & Verification
 
-- [ ] 5.4.1 Visual comparison against mockup — spacing, colors, typography
-- [ ] 5.4.2 Theme consistency: verify light/dark mode renders correctly
-- [ ] 5.4.3 Add unit tests for UpcomingDeadlines, ActivityItem, useDashboard
-- [ ] 5.4.4 `pnpm lint && pnpm type-check && pnpm test && pnpm build` all pass
-- [ ] 5.4.5 Accessibility check: ARIA labels, keyboard navigation, screen reader
+- [x] 5.4.1 Visual comparison against mockup — spacing, colors, typography
+- [x] 5.4.2 Theme consistency: verify light/dark mode renders correctly
+- [x] 5.4.3 Add unit tests for UpcomingDeadlines, ActivityFeedItem, useDashboard
+- [x] 5.4.4 `pnpm lint && pnpm type-check && pnpm test && pnpm build` all pass
+- [x] 5.4.5 Accessibility check: ARIA labels, keyboard navigation, screen reader
 
 ---
 
@@ -167,11 +167,11 @@
 
 ### Fc Layer Expansion
 
-- [ ] P.1 Identify composite UI patterns from dashboard build (e.g., StatusChip, ActionIconGroup)
-- [ ] P.2 Promote repeated patterns to Fc composites if used 3+ times
-- [ ] P.3 Validate no direct MUI imports exist outside `src/components/ui/`
+- [ ] P.1 Identify composite UI patterns from dashboard build (e.g., StatusChip, ActionIconGroup) — deferred, no pattern meets 3+ usage threshold
+- [ ] P.2 Promote repeated patterns to Fc composites if used 3+ times — deferred, threshold not met
+- [x] P.3 Validate no direct MUI imports exist outside `src/components/ui/` — verified clean
 
 ### Storybook Documentation
 
-- [ ] P.4 Create dashboard component stories in `src/stories/Dashboard/`
-- [ ] P.5 Add promoted shared component stories to `src/stories/UI/`
+- [ ] P.4 Create dashboard component stories in `src/stories/Dashboard/` — deferred to Storybook session
+- [ ] P.5 Add promoted shared component stories to `src/stories/UI/` — deferred to Storybook session

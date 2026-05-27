@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react';
-import { getDashboardStats } from '@/services/dashboardService';
+import { useDashboard } from '../hooks/useDashboard';
 import { useTaskActions } from '../hooks/useTaskActions';
-import { useTaskFilters } from '../hooks/useTaskFilters';
+import { ActivityFeed } from './ActivityFeed';
 import { AddTask } from './AddTask';
 import { EditTaskModal } from './EditTaskModal';
 import { StatsCardsRow } from './StatsCardsRow';
 import { TaskList } from './TaskList';
 import { TaskOverviewChart } from './TaskOverviewChart';
+import { UpcomingDeadlines } from './UpcomingDeadlines';
 import type { EditTaskInput, Task } from '../types';
 import { FcBox } from '@/components/ui';
 
@@ -22,13 +23,11 @@ function DashboardGrid({ children }: { children: React.ReactNode }) {
 }
 
 export function DashboardLayout() {
-  const filters = useTaskFilters();
+  const dashboard = useDashboard();
 
-  const actions = useTaskActions(filters.refresh);
+  const actions = useTaskActions(dashboard.refresh);
 
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-
-  const stats = getDashboardStats();
 
   const handleSaveEdit = useCallback(
     (id: string, updates: EditTaskInput) => {
@@ -42,26 +41,28 @@ export function DashboardLayout() {
     <>
       <DashboardGrid>
         <FcBox sx={{ gridColumn: '1 / -1' }}>
-          <StatsCardsRow stats={stats} />
+          <StatsCardsRow stats={dashboard.stats} />
         </FcBox>
         <FcBox sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <AddTask onAdd={actions.createTask} />
           <TaskList
-            tasks={filters.filteredTasks}
-            activeTab={filters.activeTab}
-            priority={filters.priority}
-            sortBy={filters.sortBy}
-            onTabChange={filters.setActiveTab}
-            onPriorityChange={filters.setPriority}
-            onSortChange={filters.setSortBy}
+            tasks={dashboard.filteredTasks}
+            activeTab={dashboard.activeTab}
+            priority={dashboard.priority}
+            sortBy={dashboard.sortBy}
+            onTabChange={dashboard.setActiveTab}
+            onPriorityChange={dashboard.setPriority}
+            onSortChange={dashboard.setSortBy}
             onStart={actions.startTask}
             onComplete={actions.completeTask}
             onDelete={actions.removeTask}
             onEdit={setEditingTask}
           />
+          <ActivityFeed activities={dashboard.activities} />
         </FcBox>
         <FcBox sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <TaskOverviewChart />
+          <UpcomingDeadlines deadlines={dashboard.deadlines} />
         </FcBox>
       </DashboardGrid>
       <EditTaskModal
