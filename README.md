@@ -1,10 +1,10 @@
 # Task Manager React
 
-A learning-focused React application built with modern technologies to explore advanced React patterns, performance optimization, and scalable architecture practices.
+A modern React application built with advanced patterns, performance optimization, and scalable architecture practices.
 
-## 🎯 Learning Objectives
+## 🎯 Project Goals
 
-This project demonstrates professional React development practices and serves as a comprehensive learning resource for:
+This project demonstrates professional React development practices including:
 
 - **Feature-based Architecture** - Scalable project organization patterns
 - **Modern React Patterns** - Compound components, custom hooks, render props
@@ -264,6 +264,56 @@ UI Components/
 
 ## 🔧 Development Workflow
 
+### OpenSpec-Driven Development
+
+This project uses a spec-driven development workflow to simulate production-style feature planning and incremental implementation. OpenSpec provides a structured workflow for planning, implementing, and archiving features with complete artifact generation.
+
+#### OpenSpec Workflow
+
+1. **Propose Change** — Generate a change proposal with artifacts (proposal.md, design.md, specs, tasks.md)
+2. **Apply Change** — Implement features following the generated task list
+3. **Archive Change** — Sync delta specs to main specs and archive the change
+
+#### OpenSpec Commands
+
+```bash
+# List available changes
+openspec list
+
+# Create a new change (spec-driven schema)
+openspec propose <change-name> --schema spec-driven
+
+# Apply a change (start implementation)
+openspec apply <change-name>
+
+# Check change status
+openspec status --change <change-name>
+
+# Archive a completed change
+openspec archive <change-name>
+```
+
+#### Change Artifacts
+
+Each OpenSpec change generates:
+
+- **proposal.md** — Feature overview and objectives
+- **design.md** — Technical design decisions and architecture
+- **specs/** — Delta specifications for new/modified capabilities
+- **tasks.md** — Detailed implementation task list
+
+#### Spec Sync
+
+Delta specs from completed changes are synced to `openspec/specs/` as permanent capability documentation. Currently documented capabilities:
+
+- `activity-feed` — Activity feed component specifications
+- `dashboard-layout` — Dashboard grid layout specifications
+- `task-crud` — Task CRUD operations specifications
+- `task-list` — Task list component specifications
+- `task-overview-chart` — Task overview chart specifications
+- `task-editing` — Task editing modal specifications
+- `theme-toggle` — Theme toggle component specifications
+
 ### Component Development (Clean Separation)
 
 1. Create pure component: `src/components/ui/ComponentName/ComponentName.tsx` (no Storybook deps)
@@ -403,7 +453,7 @@ View all mockups in the [`docs/ux/mockups/`](./docs/ux/mockups/) directory.
 
 ## 🤝 Contributing
 
-This is a personal learning project designed to demonstrate React best practices. Feel free to:
+This is a React application demonstrating best practices. Feel free to:
 
 - **Use as reference** for your own projects
 - **Suggest improvements** via issues
