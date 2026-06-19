@@ -95,6 +95,10 @@ export function updateTask(
 }
 
 export function deleteTask(id: string): boolean {
+  const task = tasks.find(t => t.id === id);
+
+  if (!task || task.status === TaskStatus.completed) return false;
+
   const len = tasks.length;
 
   tasks = tasks.filter(t => t.id !== id);

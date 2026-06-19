@@ -62,16 +62,17 @@ function TaskRowActions({
 }: TaskRowProps) {
   return (
     <>
-      {task.status === TaskStatus.pending && onStart && (
-        <FcButton
-          small
-          outlined
-          onClick={() => onStart(task.id)}
-          aria-label={`Start task: ${task.title}`}>
-          <PlayArrowIcon sx={{ fontSize: 16, mr: 0.5 }} />
-          Start
-        </FcButton>
-      )}
+      {(task.status === TaskStatus.new || task.status === TaskStatus.pending) &&
+        onStart && (
+          <FcButton
+            small
+            outlined
+            onClick={() => onStart(task.id)}
+            aria-label={`Start task: ${task.title}`}>
+            <PlayArrowIcon sx={{ fontSize: 16, mr: 0.5 }} />
+            Start
+          </FcButton>
+        )}
       {task.status === TaskStatus.inProgress && onComplete && (
         <FcIconButton
           size="small"
@@ -90,7 +91,7 @@ function TaskRowActions({
             <EditIcon fontSize="small" />
           </FcIconButton>
         )}
-        {onDelete && (
+        {onDelete && task.status !== TaskStatus.completed && (
           <FcIconButton
             size="small"
             onClick={() => onDelete(task.id)}

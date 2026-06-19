@@ -199,5 +199,13 @@ export default defineConfig([
       ],
     },
   },
+  // Disable line-length limits for test files
+  {
+    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    rules: {
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+    },
+  },
   ...storybook.configs['flat/recommended'],
 ]);

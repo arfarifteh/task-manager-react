@@ -15,6 +15,13 @@ const pendingTask: Task = {
   updatedAt: '2026-05-15T00:00:00.000Z',
 };
 
+const newTask: Task = {
+  ...pendingTask,
+  id: 't4',
+  title: 'Fresh task',
+  status: TaskStatus.new,
+};
+
 const inProgressTask: Task = {
   ...pendingTask,
   id: 't2',
@@ -56,6 +63,27 @@ describe('TaskRow', () => {
     expect(onStart).toHaveBeenCalledWith('t1');
   });
 
+  it('shows Start button for newly added tasks (status: new)', () => {
+    const onStart = vi.fn();
+
+    render(<TaskRow task={newTask} onStart={onStart} />);
+
+    const btn = screen.getByRole('button', { name: /start task/i });
+
+    fireEvent.click(btn);
+    expect(onStart).toHaveBeenCalledWith('t4');
+  });
+
+  it('does not show Start button for completed tasks', () => {
+    const onStart = vi.fn();
+
+    render(<TaskRow task={completedTask} onStart={onStart} />);
+
+    expect(
+      screen.queryByRole('button', { name: /start task/i })
+    ).not.toBeInTheDocument();
+  });
+
   it('shows complete action for in-progress tasks', () => {
     const onComplete = vi.fn();
 
@@ -84,5 +112,15 @@ describe('TaskRow', () => {
 
     fireEvent.click(btn);
     expect(onDelete).toHaveBeenCalledWith('t1');
+  });
+
+  it('does not show delete button for completed tasks', () => {
+    const onDelete = vi.fn();
+
+    render(<TaskRow task={completedTask} onDelete={onDelete} />);
+
+    expect(
+      screen.queryByRole('button', { name: /delete task/i })
+    ).not.toBeInTheDocument();
   });
 });

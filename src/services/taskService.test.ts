@@ -1,6 +1,12 @@
 import { describe, expect, it, beforeEach } from 'vitest';
-import { TaskPriority } from '../types';
-import { addTask, getTaskById, updateTask } from './taskService';
+import { TaskPriority, TaskStatus } from '../types';
+import {
+  addTask,
+  deleteTask,
+  getTaskById,
+  updateTask,
+  updateTaskStatus,
+} from './taskService';
 
 describe('updateTask', () => {
   let taskId: string;
@@ -65,5 +71,37 @@ describe('updateTask', () => {
     const result = updateTask('nonexistent', { title: 'Nope' });
 
     expect(result).toBeUndefined();
+  });
+});
+
+describe('deleteTask', () => {
+  it('deletes a non-completed task', () => {
+    const task = addTask({
+      title: 'Deletable',
+      description: '',
+      priority: TaskPriority.low,
+      dueDate: '2026-06-01',
+    });
+
+    expect(deleteTask(task.id)).toBe(true);
+    expect(getTaskById(task.id)).toBeUndefined();
+  });
+
+  it('refuses to delete a completed task', () => {
+    const task = addTask({
+      title: 'Completed task',
+      description: '',
+      priority: TaskPriority.medium,
+      dueDate: '2026-06-01',
+    });
+
+    updateTaskStatus(task.id, TaskStatus.completed);
+
+    expect(deleteTask(task.id)).toBe(false);
+    expect(getTaskById(task.id)).toBeDefined();
+  });
+
+  it('returns false for non-existent id', () => {
+    expect(deleteTask('nonexistent')).toBe(false);
   });
 });
