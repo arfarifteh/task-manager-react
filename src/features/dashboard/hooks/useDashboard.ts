@@ -1,8 +1,8 @@
-import { getActivities } from '@/services/activityService';
+import { getActivities } from '@/features/dashboard/services/activityService';
 import {
   getDashboardStats,
   getUpcomingDeadlines,
-} from '@/services/dashboardService';
+} from '@/features/dashboard/services/dashboardService';
 import { useTaskFilters } from './useTaskFilters';
 
 export function useDashboard() {

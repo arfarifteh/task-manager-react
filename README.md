@@ -70,18 +70,24 @@ src/
 │   ├── LoadingStates.tsx   # Skeleton & spinner components
 │   └── index.ts            # Barrel export (all Fc components + icons)
 ├── features/                # Domain features (MANDATORY structure)
-│   └── dashboard/          # Dashboard feature (in progress)
+│   ├── dashboard/          # Dashboard feature
+│   │   ├── components/     # Dashboard UI components
+│   │   ├── hooks/          # useDashboard, useTaskFilters, useTaskActions
+│   │   ├── services/       # dashboardService, activityService
+│   │   └── types.ts        # Re-exports + dashboard-specific types
+│   └── analytics/          # Analytics feature
+│       ├── components/     # Charts, stat cards, deadlines list
+│       ├── hooks/          # useAnalytics
+│       └── services/       # analyticsService
 ├── types/                   # Domain model types
 │   ├── task.ts             # Task (title, description, status, priority, dueDate), TaskFilter
 │   ├── user.ts             # User, UserProfile
 │   ├── activity.ts         # ActivityItem, ActivityType
 │   ├── dashboard.ts        # DashboardStats, TaskOverview
 │   └── index.ts            # Barrel export
-├── services/                # Data layer (mock-first)
+├── services/                # Shared app-level services
 │   ├── mockData.ts         # Sample data matching UX mockup
-│   ├── taskService.ts      # CRUD operations on tasks
-│   ├── dashboardService.ts # Stats, overview, deadlines
-│   └── activityService.ts  # Activity feed data
+│   └── taskService.ts      # CRUD operations on tasks (cross-feature)
 ├── routes/                  # React Router co-located routes
 │   ├── root.tsx            # App shell (sidebar + header)
 │   ├── index.tsx           # Dashboard page

@@ -1,6 +1,6 @@
-import { TaskStatus } from '../types';
-import { mockTasks } from './mockData';
-import type { Task, TaskFilter, NewTaskInput, EditTaskInput } from '../types';
+import { mockTasks } from '@/services/mockData';
+import type { EditTaskInput, NewTaskInput, Task, TaskFilter } from '@/types';
+import { TaskStatus } from '@/types';
 
 let tasks = [...mockTasks];
 

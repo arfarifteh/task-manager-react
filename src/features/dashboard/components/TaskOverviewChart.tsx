@@ -1,4 +1,4 @@
-import { getTaskOverview } from '@/services/dashboardService';
+import { getTaskOverview } from '@/features/dashboard/services/dashboardService';
 import {
   FcCard,
   FcDonutChart,

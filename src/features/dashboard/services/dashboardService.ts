@@ -1,5 +1,5 @@
+import { getTasks, getTaskCounts } from '@/services/taskService';
 import { TaskStatus } from '../types';
-import { getTasks, getTaskCounts } from './taskService';
 import type { DashboardStats, TaskOverview, UpcomingDeadline } from '../types';
 
 export function getDashboardStats(): DashboardStats {

@@ -1,4 +1,4 @@
-import { mockActivities } from './mockData';
+import { mockActivities } from '@/services/mockData';
 import type { ActivityItem } from '../types';
 
 let activities = [...mockActivities];
